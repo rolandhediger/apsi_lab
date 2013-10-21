@@ -1,7 +1,12 @@
 package ch.fhnw.apsi.lab1;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.bouncycastle.crypto.BlockCipher;
 import org.bouncycastle.crypto.BufferedBlockCipher;
@@ -33,9 +38,7 @@ public class SimplifiedHash {
 		for(int i = 0; i < 8;i++)
 			out[out.length-8+i] = length[i];
 		
-		
-		
-		return null;
+		return out;
 	}
 	
 	private long create(byte[] input) {
@@ -46,15 +49,16 @@ public class SimplifiedHash {
 		byte[] hash = new byte[8];
 		byte[] previousHash = iv.clone();
 		
-		for(int i = 0; i < input.length;i++) {
+		for(int i = 0; i < input.length;i+= 8) {
 			KeyParameter p = new KeyParameter(previousHash);
 			cipher.init(true, p);
-			//hash = new byte[cipher.getOutputSize(input.length)];
-			int outputLen = cipher.processBytes(input,0,input.length,desOut,0);
+			desOut = new byte[cipher.getOutputSize(8)];
+			int outputLen = cipher.processBytes(input,i,8,desOut,0);
 			
 			try {
-				cipher.doFinal(desOut, outputLen);
+				cipher.doFinal(desOut, 0);
 				
+				//xor magix
 				for(int j = 0; j <hash.length;j++) {
 					hash[j] = (byte) ((desOut[j]^desOut[j+8]) ^ previousHash[j]);
 				}
@@ -87,6 +91,14 @@ public class SimplifiedHash {
 	public static void main(String[] args) {
 		SimplifiedHash hash = new SimplifiedHash();
 		
-		
+		Path p = Paths.get("TestF.txt");
+		try {
+			byte[] input = Files.readAllBytes(p);
+			int i = hash.createHash(input);
+			System.out.println(i);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
