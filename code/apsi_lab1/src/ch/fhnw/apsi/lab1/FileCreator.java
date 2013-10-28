@@ -21,8 +21,6 @@ public class FileCreator {
 
 	HashMap<Integer, ArrayList<String>> map = new HashMap<>();
 
-	// HashMap<Integer, ArrayList<String>> letters = new HashMap<>();
-
 	public FileCreator(int nCollisions) {
 		this.fillMap();
 		this.hashesFake = new HashMap<>();

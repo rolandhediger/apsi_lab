@@ -1,0 +1,72 @@
+\documentclass[12pt]{scrartcl}
+ \usepackage{fancyhdr, graphicx}
+ \usepackage[german]{babel}
+ \usepackage[scaled=0.92]{helvet}
+ \usepackage{enumitem}
+ \usepackage{parskip}
+ \usepackage{lastpage} % for getting last page number
+ \renewcommand{\familydefault}{\sfdefault}
+ 
+ \fancypagestyle{firststyle}{ %Style of the first page
+ \fancyhf{}
+ \fancyheadoffset[L]{0.6cm}
+ \lhead{
+ \includegraphics[scale=0.8]{./fhnw_ht_e_10mm.jpg}}
+ \renewcommand{\headrulewidth}{0pt}
+ \lfoot{APSI Lab 1}
+ \rfoot{Roland Hediger, Jonas Schwammberger}
+}
+
+\fancypagestyle{documentstyle}{ %Style of the rest of the document
+ \fancyhf{}
+ \fancyheadoffset[L]{0.6cm}
+\lhead{
+ \includegraphics[scale=0.8]{./fhnw_ht_e_10mm.jpg}}
+ \renewcommand{\headrulewidth}{0pt}
+ \lfoot{\thepage\ / \pageref{LastPage} }
+}
+
+\pagestyle{firststyle} %different look of first page
+ 
+\title{ %Titel
+APSI Lab 1
+\vspace{0.2cm}
+}
+
+ \begin{document}
+ \maketitle
+ \thispagestyle{firststyle}
+ \pagestyle{firststyle}
+ \begin{abstract}
+ \begin{center}
+  put abstract here  
+ \end{center}
+ \vspace{0.5cm}
+\hrulefill
+\end{abstract}
+
+ \pagestyle{documentstyle}
+ \tableofcontents
+ \pagebreak
+\section{Intro}
+Ihre Aufgabe besteht darin, sogenannte Kollisionen im Hash-Verfahren zu suchen, d.h. Änderungen
+im Originaltext, die den gleichen Hashwert liefern: $ h(m_{orig}) = h(m_{fake})$. Wie Sie vielleicht
+bereits bemerkt haben, handelt es sich um eine praktische Anwendung des bekannten
+Geburtstagsparadoxons, das Sie in der Mathematik bzw. in der Kryptologie kennengelernt
+haben.
+
+\section{Hashfunktion}
+
+\section{Variationserzeugung}
+Für diese Aufgabe haben wir $2^{32}$ verschiedene Kombinationsmöglichkeiten pro Mail. Diese Kombinationen haben wir in einem Integer codiert. Jedes Bit repräsentiert einen Index eines Platzhalters. Zum Beispiel: Das zweite Bit steht auf 0, dann wird das Wort "vom Herzen" eingesetzt.
+
+\subsection{Datenstrukturen}
+Alle Platzhaltertexte haben wir in einer Hashmap mit \"Platzhalter\" index als Schlüssel und einem Arraylist der grösse 2 für die Texte.
+
+\section{Kollisionsdetektion}
+\subsection{Strategie}
+Wir können zwischen zwei Strateien unterscheiden. Entweder, wir generieren alle Original und Fake Variationen linear (beginnend bei 0), oder wir benutzen einen Random-Generator für die Original und die Fake Strings.
+
+\subsection{Datenstrukturen}
+
+ \end{document}
