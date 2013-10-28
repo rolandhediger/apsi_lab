@@ -12,7 +12,9 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class FileCreator {
-
+	int nCollisions;
+	String fileOrig = null;
+	String fileFake = null;
 	HashMap<Integer, Integer> hashesOriginal;
 	HashMap<Integer, Integer> hashesFake;
 	SimplifiedHash hash = new SimplifiedHash();
@@ -21,8 +23,21 @@ public class FileCreator {
 
 	// HashMap<Integer, ArrayList<String>> letters = new HashMap<>();
 
-	public FileCreator() {
+	public FileCreator(int nCollisions) {
 		this.fillMap();
+		this.hashesFake = new HashMap<>();
+		this.hashesOriginal = new HashMap<>();
+		this.nCollisions = nCollisions;
+
+		try {
+			fileOrig = this.readFile("templateOriginal.txt",
+					StandardCharsets.UTF_8);
+			fileFake = this
+					.readFile("templateFake.txt", StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void fillMap() {
@@ -198,7 +213,7 @@ public class FileCreator {
 		String tmpfile = new String(file);
 		for (int i = 0; i < 32; i++) {
 			int bit = combination & 1;
-			String placeHolderString = "#" + Integer.toString(i);
+			String placeHolderString = "{#" + Integer.toString(i) + "}";
 			ArrayList<String> combinationsForPlaceHolder = map.get(i);
 			tmpfile = tmpfile.replace(placeHolderString,
 					combinationsForPlaceHolder.get(bit));
@@ -209,42 +224,49 @@ public class FileCreator {
 	}
 
 	public void createAllVariation() {
-		String fileOrig = null;
-		String fileFake = null;
-		try {
-			fileOrig = this.readFile("templateOriginal.txt",
-					StandardCharsets.UTF_8);
-			fileFake = this
-					.readFile("templateFake.txt", StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		int fakeCombination = 0;
 		int originalCombination = 0;
 		int collisionHash = 0;
 
 		int combination = 0;
 
-		boolean foundColision = false;
-		boolean useRandom = false;
+		int collisionsFound = 0;
+		boolean useRandom = true;
 		Random rand = new Random();
 
-		while (!foundColision) {
+		// too annoyed, fix later
+		while (collisionsFound != nCollisions) {
 			for (int i = 0; i < 1024; i++) {
-				int hash = createVariation(combination, fileOrig);
-				this.hashesOriginal.put(hash, combination);
+				int hash;
 
-				hash = createVariation(combination, fileFake);
-				this.hashesFake.put(hash, combination);
-				if (useRandom)
+				if (useRandom) {
+					// random combination
 					do
 						combination = rand.nextInt();
 					while (this.hashesOriginal.containsValue(combination));
-				else
+
+					hash = createVariation(combination, fileOrig);
+					this.hashesOriginal.put(hash, combination);
+
+					// random combination
+					do
+						combination = rand.nextInt();
+					while (this.hashesFake.containsValue(combination));
+					hash = createVariation(combination, fileFake);
+					this.hashesFake.put(hash, combination);
+
+				} else {
+					hash = createVariation(combination, fileOrig);
+					this.hashesOriginal.put(hash, combination);
+
+					hash = createVariation(combination, fileFake);
+					this.hashesFake.put(hash, combination);
+
 					combination++;
+				}
 			}
+
+			System.out.println("i am alive");
 
 			// check if there are collisions
 			Iterator<Integer> it = this.hashesOriginal.keySet().iterator();
@@ -252,16 +274,25 @@ public class FileCreator {
 				Integer hash = it.next();
 				// collision found
 				if (this.hashesFake.containsKey(hash)) {
-					foundColision = true;
+					collisionsFound++;
 					collisionHash = hash;
 					fakeCombination = hashesFake.get(hash);
 					originalCombination = hashesOriginal.get(hash);
+					System.out.println(collisionHash);
+					System.out.println(originalCombination);
+					System.out.println(fakeCombination);
+					this.checkSuccess(originalCombination, fakeCombination);
+					System.out.println("-----------------------------------");
 				}
 			}
 		}
 
-		System.out.println(collisionHash);
-		System.out.println(originalCombination);
-		System.out.println(fakeCombination);
+	}
+
+	private void checkSuccess(int originalComb, int fakeComb) {
+		int hash = createVariation(originalComb, this.fileOrig);
+		int hash2 = createVariation(fakeComb, fileFake);
+		System.out.print("Success? ");
+		System.out.println(hash == hash2);
 	}
 }

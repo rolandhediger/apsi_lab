@@ -16,7 +16,8 @@ public class SimplifiedHash {
 	private byte[] preprocess(byte[] input) {
 		int mLength = input.length;
 		byte[] length = ByteBuffer.allocate(8).putLong(mLength).array();
-		int r = mLength % 8; // input length % 64 bit blocks
+		int r = 8 - (mLength % 8); // calculate the rest you need to make the
+									// input divisible by 8
 		byte[] out = new byte[mLength + r + 8];
 
 		// Copy
