@@ -8,8 +8,13 @@ import java.util.HashMap;
 
 public class FileCreator {
 
+	HashMap<Integer, Integer> hashesOriginal;
+	HashMap<Integer, Integer> hashesFake;
+	SimplifiedHash hash;
+
 	HashMap<Integer, ArrayList<String>> map = new HashMap<>();
-	HashMap<Integer, ArrayList<String>> letters = new HashMap<>();
+
+	// HashMap<Integer, ArrayList<String>> letters = new HashMap<>();
 
 	private void fillMap() {
 
@@ -177,9 +182,8 @@ public class FileCreator {
 	public void readFile(String path) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		String line;
-		while ((line = br.readLine()) != null) {
+		while ((line = br.readLine()) != null)
 			processLine(line);
-		}
 		br.close();
 	}
 
@@ -196,18 +200,20 @@ public class FileCreator {
 
 	}
 
-	private void createVariation(int hashIndex, int placeHolder) {
-		ArrayList<String> possibilities = map.get(hashIndex);
-		if (placeHolder > 0) {
-			ArrayList<String> lastVariants = letters.get(placeHolder - 1);
-			for (String lv : lastVariants) {
-				for (String pos : possibilities) {
-					ArrayList<String> newPermutations = new ArrayList<>();
-					
-				}
-			}
-		
-		}
+	private int createVariation(int combination) {
+		String file = null;
+		// combination & 1
+		combination >>>= 1;
+		return 0;
+	}
+
+	private void createAllVariation() {
+
+		int combination = 0;
+
+		while (combination != -1)
+			for (int i = 0; i < 1000; i++)
+				combination++;
 
 	}
 
