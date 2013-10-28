@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Random;
 
 public class FileCreator {
 
@@ -208,13 +210,42 @@ public class FileCreator {
 	}
 
 	private void createAllVariation() {
+		int fakeCombination = 0;
+		int originalCombination = 0;
+		int collisionHash = 0;
 
 		int combination = 0;
 
-		while (combination != -1)
-			for (int i = 0; i < 1000; i++)
-				combination++;
+		boolean foundColision = false;
+		boolean useRandom = false;
+		Random rand = new Random();
 
+		while (!foundColision) {
+			for (int i = 0; i < 1024; i++) {
+				int hash = createVariation(combination);
+				this.hashesOriginal.put(hash, combination);
+
+				if (useRandom)
+					do
+						combination = rand.nextInt();
+					while (this.hashesOriginal.containsValue(combination));
+				else
+					combination++;
+			}
+
+			// check if there are collisions
+			Iterator<Integer> it = this.hashesOriginal.keySet().iterator();
+			while (it.hasNext()) {
+				Integer hash = it.next();
+				// collision found
+				if (this.hashesFake.containsKey(hash)) {
+					foundColision = true;
+					collisionHash = hash;
+					fakeCombination = hashesFake.get(hash);
+					originalCombination = hashesOriginal.get(hash);
+				}
+			}
+		}
 	}
 
 }
