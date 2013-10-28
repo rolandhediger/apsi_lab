@@ -3,6 +3,11 @@ package ch.fhnw.apsi.lab1;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,7 +15,7 @@ public class FileCreator {
 
 	HashMap<Integer, Integer> hashesOriginal;
 	HashMap<Integer, Integer> hashesFake;
-	SimplifiedHash hash;
+	SimplifiedHash hash = new SimplifiedHash();
 
 	HashMap<Integer, ArrayList<String>> map = new HashMap<>();
 
@@ -188,28 +193,36 @@ public class FileCreator {
 	}
 
 	private void processLine(String line) {
-		String tmpLine = new String(line);
-		int hashIndex = tmpLine.indexOf('#');
-		while (hashIndex != -1) {
-			int placeHolder = Integer
-					.parseInt(line.substring(hashIndex + 1, 1));
-			tmpLine = tmpLine.substring(hashIndex + 2);
-			hashIndex = tmpLine.indexOf('#');
-			createVariation(hashIndex,placeHolder,tmpLine.substring(beginIndex))
+		
+
+	}
+	
+	String readFile(String path, Charset encoding) 
+			  throws IOException 
+			{
+			  byte[] encoded = Files.readAllBytes(Paths.get(path));
+			  return encoding.decode(ByteBuffer.wrap(encoded)).toString();
+			}
+
+	private int createVariation(int combination,String file) {
+		int placeHolder = 0;
+        String tmpfile = new String(file);
+		while (combination != 0){
+			int bit = combination & 1;
+			String placeHolderString = "#"+ Integer.toString(placeHolder);
+			ArrayList<String> combinationsForPlaceHolder = map.get(placeHolder);
+			tmpfile = tmpfile.replace(placeHolderString,combinationsForPlaceHolder.get(bit));
+			placeHolder++;
+			combination >>>= 1;
 		}
-
+		
+		return hash.createHash(tmpfile.getBytes());
 	}
 
-	private int createVariation(int combination) {
-		String file = null;
-		// combination & 1
-		combination >>>= 1;
-		return 0;
-	}
-
-	private void createAllVariation() {
-
+	private void createAllVariation() throws IOException {
+     
 		int combination = 0;
+		String file = readFile("template.txt", StandardCharsets.UTF_8);
 
 		while (combination != -1)
 			for (int i = 0; i < 1000; i++)
