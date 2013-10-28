@@ -1,7 +1,5 @@
 package ch.fhnw.apsi.lab1;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -22,6 +20,10 @@ public class FileCreator {
 	HashMap<Integer, ArrayList<String>> map = new HashMap<>();
 
 	// HashMap<Integer, ArrayList<String>> letters = new HashMap<>();
+
+	public FileCreator() {
+		this.fillMap();
+	}
 
 	private void fillMap() {
 
@@ -186,42 +188,39 @@ public class FileCreator {
 		map.put(31, al32);
 	}
 
-	public void readFile(String path) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String line;
-		while ((line = br.readLine()) != null)
-			processLine(line);
-		br.close();
+	String readFile(String path, Charset encoding) throws IOException {
+		byte[] encoded = Files.readAllBytes(Paths.get(path));
+		return encoding.decode(ByteBuffer.wrap(encoded)).toString();
 	}
 
-	private void processLine(String line) {
-		
+	private int createVariation(int combination, String file) {
 
-	}
-	
-	String readFile(String path, Charset encoding) 
-			  throws IOException 
-			{
-			  byte[] encoded = Files.readAllBytes(Paths.get(path));
-			  return encoding.decode(ByteBuffer.wrap(encoded)).toString();
-			}
-
-	private int createVariation(int combination,String file) {
-		int placeHolder = 0;
-        String tmpfile = new String(file);
-		while (combination != 0){
+		String tmpfile = new String(file);
+		for (int i = 0; i < 32; i++) {
 			int bit = combination & 1;
-			String placeHolderString = "#"+ Integer.toString(placeHolder);
-			ArrayList<String> combinationsForPlaceHolder = map.get(placeHolder);
-			tmpfile = tmpfile.replace(placeHolderString,combinationsForPlaceHolder.get(bit));
-			placeHolder++;
+			String placeHolderString = "#" + Integer.toString(i);
+			ArrayList<String> combinationsForPlaceHolder = map.get(i);
+			tmpfile = tmpfile.replace(placeHolderString,
+					combinationsForPlaceHolder.get(bit));
 			combination >>>= 1;
 		}
-		
+
 		return hash.createHash(tmpfile.getBytes());
 	}
 
-	private void createAllVariation() {
+	public void createAllVariation() {
+		String fileOrig = null;
+		String fileFake = null;
+		try {
+			fileOrig = this.readFile("templateOriginal.txt",
+					StandardCharsets.UTF_8);
+			fileFake = this
+					.readFile("templateFake.txt", StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		int fakeCombination = 0;
 		int originalCombination = 0;
 		int collisionHash = 0;
@@ -234,9 +233,11 @@ public class FileCreator {
 
 		while (!foundColision) {
 			for (int i = 0; i < 1024; i++) {
-				int hash = createVariation(combination);
+				int hash = createVariation(combination, fileOrig);
 				this.hashesOriginal.put(hash, combination);
 
+				hash = createVariation(combination, fileFake);
+				this.hashesFake.put(hash, combination);
 				if (useRandom)
 					do
 						combination = rand.nextInt();
@@ -258,6 +259,9 @@ public class FileCreator {
 				}
 			}
 		}
-	}
 
+		System.out.println(collisionHash);
+		System.out.println(originalCombination);
+		System.out.println(fakeCombination);
+	}
 }
