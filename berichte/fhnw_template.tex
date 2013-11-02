@@ -48,25 +48,27 @@ APSI Lab 1
  \pagestyle{documentstyle}
  \tableofcontents
  \pagebreak
-\section{Intro}
+\section{Aufgabenstellung}
 Ihre Aufgabe besteht darin, sogenannte Kollisionen im Hash-Verfahren zu suchen, d.h. Änderungen
 im Originaltext, die den gleichen Hashwert liefern: $ h(m_{orig}) = h(m_{fake})$. Wie Sie vielleicht
 bereits bemerkt haben, handelt es sich um eine praktische Anwendung des bekannten
 Geburtstagsparadoxons, das Sie in der Mathematik bzw. in der Kryptologie kennengelernt
 haben.
 
-\section{Hashfunktion}
+\section{Softwareaufbau}
+Die Aufgabe wurde mit zwei Klassen implementiert. Die Klasse \"SimplifiedHash\" beinhaltet die beschriebene Hashfunktion und in der Klasse \"CollisionGenerator\" werden die verschiedenen Kombinationen der Mails generiert und nach einer Hashkollision überprüft.
 
-\section{Variationserzeugung}
-Für diese Aufgabe haben wir $2^{32}$ verschiedene Kombinationsmöglichkeiten pro Mail. Diese Kombinationen haben wir in einem Integer codiert. Jedes Bit repräsentiert einen Index eines Platzhalters. Zum Beispiel: Das zweite Bit steht auf 0, dann wird das Wort "vom Herzen" eingesetzt.
+\subsection{Hashfunktion}
+Die Hashfunktion wurde nach der Spezifikation der Aufgabenstellung implementiert. Jedoch hat der DES Cipher eine Output-Länge von  128 Bit, wie man die 128 Bit verkürzen soll auf 64 Bit ist nicht spezifiziert. Deshalb wird der DES-Output in zwei 64-Bit-Blöcke aufgeteilt und mit XOR auf einen 64-Bit-Block eingestampft.
 
-\subsection{Datenstrukturen}
-Alle Platzhaltertexte haben wir in einer Hashmap mit \"Platzhalter\" index als Schlüssel und einem Arraylist der grösse 2 für die Texte.
+\subsection{CollisionGenerator}
+\subsubsection{Variationserzeugung}
+Lauf der Aufgabenstellung haben wir $2^{32}$ verschiedene Kombinationsmöglichkeiten pro Mail. Diese Kombinationen haben wir in einem Integer codiert, dabei repräsentiert ein Bit einen Platzhalter.   Zum Beispiel: Das zweite Bit steht auf 0, dann wird das Wort "vom Herzen" eingesetzt. So können wir jede Variation eindeutig bestimmen.
 
-\section{Kollisionsdetektion}
-\subsection{Strategie}
-Wir können zwischen zwei Strateien unterscheiden. Entweder, wir generieren alle Original und Fake Variationen linear (beginnend bei 0), oder wir benutzen einen Random-Generator für die Original und die Fake Strings.
+\subsection{Collision Detection}
+\subsubsection{Strategien}
+Wir können zwischen zwei Strateien unterscheiden. Entweder, wir generieren alle Original und Fake Variationen linear (beginnend bei 0), oder wir je einen Random Integer für die Original und die Fake Mail. Mit der Random Strategie erhoffen wir uns eine bessere Laufzeit und kleineren Memory Footprint falls man nach mehreren Kollisionen sucht.
 
-\subsection{Datenstrukturen}
-
+\subsubsection{Datenstrukturen}
+Wir haben zwei Hashmaps, eine für alle Variationen der Original-Mail und eine für die Fake-Mail. Für den Key benutzen wir jeweils den Hashwert und als Value wird der Variations-Integer dieser Mail gesetzt.
  \end{document}

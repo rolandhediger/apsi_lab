@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
-public class FileCreator {
+public class CollisionGenerator {
 	int nCollisions;
 	String fileOrig = null;
 	String fileFake = null;
@@ -21,7 +21,7 @@ public class FileCreator {
 
 	HashMap<Integer, ArrayList<String>> map = new HashMap<>();
 
-	public FileCreator(int nCollisions) {
+	public CollisionGenerator(int nCollisions) {
 		this.fillMap();
 		this.hashesFake = new HashMap<>();
 		this.hashesOriginal = new HashMap<>();
@@ -221,7 +221,7 @@ public class FileCreator {
 		return hash.createHash(tmpfile.getBytes());
 	}
 
-	public void createAllVariation() {
+	public void searchCollision() {
 		int fakeCombination = 0;
 		int originalCombination = 0;
 		int collisionHash = 0;
