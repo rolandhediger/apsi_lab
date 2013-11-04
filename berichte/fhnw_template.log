@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.20)  2 NOV 2013 12:32
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.20)  4 NOV 2013 09:45
 entering extended mode
 **fhnw_template.tex
 (C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\fhnw_template.tex
@@ -176,40 +176,110 @@ Package: parskip 2001/04/09 non-zero parskip adjustments
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lastpage\lastpage.sty"
 Package: lastpage 2013/01/28 v1.2l Refers to last page's name (HMM; JPG)
 )
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
+\lst@mode=\count91
+\lst@gtempboxa=\box28
+\lst@token=\toks16
+\lst@length=\count92
+\lst@currlwidth=\dimen107
+\lst@column=\count93
+\lst@pos=\count94
+\lst@lostspace=\dimen108
+\lst@width=\dimen109
+\lst@newlines=\count95
+\lst@lineno=\count96
+\lst@maxwidth=\dimen110
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count97
+\lst@skipnumbers=\count98
+\lst@framebox=\box29
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
+Package: caption 2012/02/19 v3.2f Customizing captions (AR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
+\captionmargin=\dimen111
+\captionmargin@=\dimen112
+\captionwidth=\dimen113
+\caption@indent=\dimen114
+\caption@parindent=\dimen115
+\caption@hangindent=\dimen116
+)
+Package caption Info: KOMA-Script document class.
+\c@ContinuedFloat=\count99
+Package caption Info: listings package is loaded.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 702.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
 (C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\fhnw_template.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 70.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1phv.fd"
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 11.03998pt on input line 36.
+(Font)              scaled to size 11.03998pt on input line 70.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count91
-\scratchdimen=\dimen107
-\scratchbox=\box28
-\nofMPsegments=\count92
-\nofMParguments=\count93
-\everyMPshowfont=\toks16
-\MPscratchCnt=\count94
-\MPscratchDim=\dimen108
-\MPnumerator=\count95
-\makeMPintoPDFobject=\count96
-\everyMPtoPDFconversion=\toks17
+\scratchcounter=\count100
+\scratchdimen=\dimen117
+\scratchbox=\box30
+\nofMPsegments=\count101
+\nofMParguments=\count102
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count103
+\MPscratchDim=\dimen118
+\MPnumerator=\count104
+\makeMPintoPDFobject=\count105
+\everyMPtoPDFconversion=\toks18
 )
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             http://www.ctan.org/tex-archive/ 
@@ -217,34 +287,37 @@ Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             or
 (lastpage)             http://www.ctan.org/tex-archive/ 
 (lastpage)             install/macros/latex/contrib/pageslts.tds.zip
-(lastpage)             ! on input line 36.
+(lastpage)             ! on input line 70.
+\c@lstlisting=\count106
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 38.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 72.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 11.03998pt on input line 38.
+(Font)              scaled to size 11.03998pt on input line 72.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 38.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 72.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 22.88956pt on input line 38.
+(Font)              scaled to size 22.88956pt on input line 72.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 15.89755pt on input line 38.
+(Font)              scaled to size 15.89755pt on input line 72.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 38.
+(Font)              <17.28> on input line 72.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 38.
+(Font)              <12> on input line 72.
 
 
 LaTeX Warning: No \author given.
 
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 49.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 83.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 15.89755pt on input line 49.
+(Font)              scaled to size 15.89755pt on input line 83.
 (C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\fhnw_template.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 5.
+(Font)              <8> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 5.
+(Font)              <6> on input line 4.
 )
 \tf@toc=\write3
 
@@ -252,7 +325,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
 
 <use ./fhnw_ht_e_10mm.jpg>
-Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 51.
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 85.
 (pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
 
 
@@ -273,9 +346,9 @@ Missing character: There is no ¼ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¼ in font phvr7t!
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 61.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 95.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 13.24796pt on input line 61.
+(Font)              scaled to size 13.24796pt on input line 95.
 Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¤ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
@@ -283,15 +356,19 @@ Missing character: There is no ¼ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¶ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
-Missing character: There is no ¼ in font phvr7t!
-Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¶ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¤ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
-Missing character: There is no ¼ in font phvr7t!
+Missing character: There is no ¶ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¶ in font phvr7t!
+Missing character: There is no Ã in font phvr7t!
+Missing character: There is no ¼ in font phvr7t!
+Missing character: There is no Ã in font phvr7t!
+Missing character: There is no ¼ in font phvr7t!
+Missing character: There is no Ã in font phvr7t!
+Missing character: There is no ¼ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¼ in font phvr7t!
 Missing character: There is no Ã in font phvr7t!
@@ -300,39 +377,78 @@ Missing character: There is no Ã in font phvr7t!
 Missing character: There is no ¼ in font phvr7t!
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
  <use ./fhnw_ht_e_10mm.jpg>
-Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 73.
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 109.
 (pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
 
-[2] 
+[2]
+LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 111.
+LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 112.
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 124.
+
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omsphv.fd"
+File: omsphv.fd 
+)
+LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 124.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 131.
+LaTeX Font Info:    Try loading font information for OML+phv on input line 136.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omlphv.fd"
+File: omlphv.fd 
+)
+LaTeX Font Info:    Font shape `OML/phv/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 136.
+File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
+
+<use ./fhnw_ht_e_10mm.jpg>
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 146.
+(pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
+ [3]
+File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
+ <use ./fhnw_ht_e_10mm.jpg>
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 191.
+(pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
+ [4]
+<apsi_lab.png, id=24, 711.65875pt x 356.33125pt>
+File: apsi_lab.png Graphic file (type png)
+ <use apsi_lab.png>
+Package pdftex.def Info: apsi_lab.png used on input line 203.
+(pdftex.def)             Requested size: 355.8285pt x 178.16518pt.
+
+
 AED: lastpage setting LastPage
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
 <use ./fhnw_ht_e_10mm.jpg>
-Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 76.
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 207.
 (pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
- [3]
-(C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\fhnw_template.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+ [5 <C:/Users/Jon/Documents/GitHub/apsi_lab/berichte/apsi_lab.png (PNG copy)>]
+(C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\fhnw_template.aux) ) 
 Here is how much of TeX's memory you used:
- 3093 strings out of 494045
- 45969 string characters out of 3145975
- 127871 words of memory out of 3000000
- 6366 multiletter control sequences out of 15000+200000
- 17342 words of font info for 38 fonts, out of 3000000 for 9000
+ 5983 strings out of 494045
+ 90607 string characters out of 3145975
+ 308440 words of memory out of 3000000
+ 9213 multiletter control sequences out of 15000+200000
+ 21946 words of font info for 46 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 35i,15n,47p,343b,391s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86
-)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX
- 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on fhnw_template.pdf (3 pages, 278404 bytes).
+ 40i,17n,47p,378b,1753s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86
+)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
+/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/u
+rw/helvetic/uhvr8a.pfb>
+Output written on fhnw_template.pdf (5 pages, 336925 bytes).
 PDF statistics:
- 38 PDF objects out of 1000 (max. 8388607)
+ 57 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

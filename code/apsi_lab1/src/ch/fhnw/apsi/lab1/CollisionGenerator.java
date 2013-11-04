@@ -15,9 +15,12 @@ public class CollisionGenerator {
 	int nCollisions;
 	String fileOrig = null;
 	String fileFake = null;
+	//key: hash value: combination
 	HashMap<Integer, Integer> hashesOriginal;
 	HashMap<Integer, Integer> hashesFake;
 	SimplifiedHash hash = new SimplifiedHash();
+
+	ArrayList<Integer> collidedHashes = new ArrayList<Integer>(); //collided combinations.
 
 	HashMap<Integer, ArrayList<String>> map = new HashMap<>();
 
@@ -28,10 +31,8 @@ public class CollisionGenerator {
 		this.nCollisions = nCollisions;
 
 		try {
-			fileOrig = this.readFile("templateOriginal.txt",
-					StandardCharsets.UTF_8);
-			fileFake = this
-					.readFile("templateFake.txt", StandardCharsets.UTF_8);
+			fileOrig = this.readFile("templateOriginal.txt", StandardCharsets.UTF_8);
+			fileFake = this.readFile("templateFake.txt", StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -213,8 +214,7 @@ public class CollisionGenerator {
 			int bit = combination & 1;
 			String placeHolderString = "{#" + Integer.toString(i) + "}";
 			ArrayList<String> combinationsForPlaceHolder = map.get(i);
-			tmpfile = tmpfile.replace(placeHolderString,
-					combinationsForPlaceHolder.get(bit));
+			tmpfile = tmpfile.replace(placeHolderString, combinationsForPlaceHolder.get(bit));
 			combination >>>= 1;
 		}
 
@@ -268,7 +268,8 @@ public class CollisionGenerator {
 
 			// check if there are collisions
 			Iterator<Integer> it = this.hashesOriginal.keySet().iterator();
-			while (it.hasNext()) {
+			boolean foundCollision = false;
+			while (!foundCollision && it.hasNext()) {
 				Integer hash = it.next();
 				// collision found
 				if (this.hashesFake.containsKey(hash)) {
@@ -276,6 +277,15 @@ public class CollisionGenerator {
 					collisionHash = hash;
 					fakeCombination = hashesFake.get(hash);
 					originalCombination = hashesOriginal.get(hash);
+
+					//add collision
+					this.collidedHashes.add(originalCombination);
+					this.collidedHashes.add(fakeCombination);
+
+					hashesFake.remove(hash);
+					hashesOriginal.remove(hash);
+
+					foundCollision = true;
 					System.out.println(collisionHash);
 					System.out.println(originalCombination);
 					System.out.println(fakeCombination);

@@ -2,8 +2,9 @@
 \contentsline {section}{\numberline {1}Aufgabenstellung}{2}
 \contentsline {section}{\numberline {2}Softwareaufbau}{2}
 \contentsline {subsection}{\numberline {2.1}Hashfunktion}{2}
-\contentsline {section}{\numberline {3}Variationserzeugung}{2}
-\contentsline {subsection}{\numberline {3.1}Datenstrukturen}{2}
-\contentsline {section}{\numberline {4}Kollisionsdetektion}{3}
-\contentsline {subsection}{\numberline {4.1}Strategie}{3}
-\contentsline {subsection}{\numberline {4.2}Datenstrukturen}{3}
+\contentsline {subsection}{\numberline {2.2}Kollisionsgenerator}{2}
+\contentsline {subsubsection}{\numberline {2.2.1}Variationserzeugung}{2}
+\contentsline {subsection}{\numberline {2.3}Kollisionsdetektion}{2}
+\contentsline {subsubsection}{\numberline {2.3.1}Strategien}{2}
+\contentsline {subsubsection}{\numberline {2.3.2}Datenstrukturen}{3}
+\contentsline {section}{\numberline {3}Anhang}{3}
