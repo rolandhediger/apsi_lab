@@ -1,4 +1,4 @@
-\beamer@endinputifotherversion {3.26pt}
+\beamer@endinputifotherversion {3.31pt}
 \select@language {german}
 \beamer@sectionintoc {2}{Generation der Briefe}{3}{0}{1}
 \beamer@sectionintoc {3}{Hashfunktion}{6}{0}{2}

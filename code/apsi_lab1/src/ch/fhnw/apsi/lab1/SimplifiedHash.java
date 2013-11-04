@@ -11,12 +11,13 @@ import org.bouncycastle.crypto.modes.PaddedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
 
 public class SimplifiedHash {
-	private final static byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0 };
+	private final static byte[] iv = { (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010,
+			(byte) 0b10101010 };
 
 	private byte[] preprocess(byte[] input) {
 		int mLength = input.length;
 		byte[] length = ByteBuffer.allocate(8).putLong(mLength).array();
-		int r = 8 - (mLength % 8); // calculate the rest you need to make the
+		int r = 8 - mLength % 8; // calculate the rest you need to make the
 									// input divisible by 8
 		byte[] out = new byte[mLength + r + 8];
 
@@ -56,7 +57,7 @@ public class SimplifiedHash {
 
 				// xor magix
 				for (int j = 0; j < hash.length; j++)
-					hash[j] = (byte) ((desOut[j] ^ desOut[j + 8]) ^ previousHash[j]);
+					hash[j] = (byte) (desOut[j] ^ desOut[j + 8] ^ previousHash[j]);
 
 				// swap
 				byte[] tmp = hash;
