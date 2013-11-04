@@ -1,0 +1,177 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+\usepackage[utf8x]{inputenc}
+\usepackage[german]{babel}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\lstset{
+ language=Java,
+ basicstyle=\footnotesize\ttfamily, % Standardschrift
+ numbers=left,               % Ort der Zeilennummern
+ numberstyle=\tiny,          % Stil der Zeilennummern
+ stepnumber=5,              % Abstand zwischen den Zeilennummern
+ numbersep=5pt,              % Abstand der Nummern zum Text
+ tabsize=2,                  % Groesse von Tabs
+ extendedchars=true,         %
+ breaklines=true,            % Zeilen werden Umgebrochen
+ frame=b,         
+ %commentstyle=\itshape\color{LightLime}, Was isch das? O_o
+ %keywordstyle=\bfseries\color{DarkPurple}, und das O_o
+ basicstyle=\small,
+ stringstyle=\color[RGB]{42,0,255}\ttfamily, % Farbe der String
+ keywordstyle=\color[RGB]{127,0,85}\ttfamily, % Farbe der Keywords
+ commentstyle=\color[RGB]{63,127,95}\ttfamily, % Farbe des Kommentars
+ showspaces=false,           % Leerzeichen anzeigen ?
+ showtabs=false,             % Tabs anzeigen ?
+ xleftmargin=17pt,
+ framexleftmargin=17pt,
+ framexrightmargin=5pt,
+ framexbottommargin=4pt,
+ showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+}
+\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont}
+\begin{document}
+\title{FHNW APSI Lab 1 : Wichtigkeit von $2^n$}   
+\author{Roland Hediger, Jonas Schwammberger} 
+
+\date{\today} 
+
+\frame{\titlepage} 
+
+\begin{frame}
+\section*{Übersicht}
+\tableofcontents
+\end{frame} 
+
+\begin{frame}
+\section{Generation der Briefe}
+\large \textbf{Datenstruktur:}
+\begin{itemize}
+ \item Statische Teile des Briefes bleiben dasselbe, jeder dynamische Teil hat ein Platzhalter, \texttt{\{ \# 1\}}
+ \item 32 Plathalter, 2 Möglichkeiten : Insgesamt $2^{32}$ mögliche Briefe \textbf{(mit gleicher Konto Nr)}
+ \item Datenstruktur : \texttt{HashMap<Integer,ArrayList<String>}
+ \item  Alle möglichkeiten für Platzhalter sind hardcodiert.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lstlisting}
+ private int createVariation(int combination, String file) {
+
+		String tmpfile = new String(file);
+		for (int i = 0; i < 32; i++) {
+			int bit = combination & 1;
+			String placeHolderString = "{#" + Integer.toString(i) + "}";
+			ArrayList<String> combinationsForPlaceHolder = map.get(i);
+			tmpfile = tmpfile.replace(placeHolderString,
+					combinationsForPlaceHolder.get(bit));
+			combination >>>= 1;
+		}
+
+		return hash.createHash(tmpfile.getBytes());
+	}
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+ \begin{itemize}
+  \item \texttt{Integer.MAX = $2^{32}$}
+  \item Jeder Brief Variante als Integer zwischen 0 und Integer.MAX
+  \item Möglichkeit für Platzhalter gegeben durch 1 oder 0 in  \textbf{Binärdarstellung des Integers}
+  \item Nächste Möglichkeit für Plathalter des Briefes wird mittels \textbf{vorzeichenloses Bitshift} erreicht
+ \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\section{Hashfunktion}
+\begin{enumerate}
+ \item Preprocessing : Nehme Byte Array und füge Padding hinzu damit der Länge durch 8 teilbar ist.
+ \item Hasherzeugung :
+ \item IV definiert als 8 Byte Array mit 0s
+\end{enumerate}
+\textbf{Für jeder Block}
+\begin{enumerate}
+ \item BufferedBlockCipher initializieren mit IV
+ \item Output Array für DES (16 Byte) initializieren mithilfe von BufferedBlockCipher.
+ \item Bytes verarbeiten für diese Iteration.(Processbytes
+ \item XOR ``linke und rechte'' Blöcke (i, und i+8 im DES Output Array) und dann XOR mit IV.
+ \item Swap verfahren : Erzeugte hash wird zu neue IV. (Alles in \texttt{byte[]} Format bis jetzt)
+ \item Postprocessing : Hash um 32 bits schieben, und XOR mit Integer.reverse von hash. (\texttt{int} Format).
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]
+\section{Integration von Bouncycastle}
+\begin{lstlisting}
+ 	private long create(byte[] input) {
+		BlockCipher engine = new DESEngine();
+		@SuppressWarnings("deprecation")
+		BufferedBlockCipher cipher = new PaddedBlockCipher(engine);
+		byte[] desOut = new byte[16];
+		byte[] hash = new byte[8];
+		byte[] previousHash = iv.clone();
+
+		for (int i = 0; i < input.length; i += 8) {
+			KeyParameter p = new KeyParameter(previousHash);
+			cipher.init(true, p);
+			desOut = new byte[cipher.getOutputSize(8)];
+			int outputLen = cipher.processBytes(input, i, 8, desOut, 0);
+
+			try {
+				cipher.doFinal(desOut, 0);
+
+				// xor magix
+				for (int j = 0; j < hash.length; j++)
+					hash[j] = (byte) ((desOut[j] ^ desOut[j + 8]) ^ previousHash[j]);
+
+				// swap
+				byte[] tmp = hash;
+				hash = previousHash;
+				previousHash = tmp;
+
+			} catch (CryptoException ce) {
+				System.err.println(ce);
+			}
+
+		}
+
+		ByteBuffer buffer = ByteBuffer.wrap(previousHash);
+		buffer.order(ByteOrder.LITTLE_ENDIAN);
+		return buffer.getLong();
+	}
+
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}
+\section{Kollisionssuche}
+\begin{itemize}
+ \item 2 Mengen gebildet : 1 mit alle Variationen basierend auf originalem KontoNr, und eine genau so aber mit gefälschte KontoNr.
+\end{itemize}
+\begin{block}{}
+ Statt variationen für alle Kombinationen zu machen, wählen wir 2 beliebige Kombinationen.
+\end{block}
+
+\begin{itemize}
+ \item Hashen von den Briefvarianten , prüfen auf gleicheit.
+ \item Ausgabe der Variantennummern und den dazugehörigen Hashes.
+\end{itemize}
+\begin{block}{}
+ Falls keine Gleichheit gefunden wird, wählen wir weitere beliebige Kombinationen in Blocken von 1024 aus der ganzen Menge.
+\end{block}
+
+\end{frame}
+\begin{frame}
+ \section*{Ende}
+ \huge Danke für Ihre Aufmerksamkeit.
+\end{frame}
+
+\end{document}
+

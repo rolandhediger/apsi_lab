@@ -1,0 +1,41 @@
+\section{Integration von Bouncycastle}
+\begin{lstlisting}
+  private long create(byte[] input) {
+BlockCipher engine = new DESEngine();
+@SuppressWarnings("deprecation")
+BufferedBlockCipher cipher = new PaddedBlockCipher(engine);
+byte[] desOut = new byte[16];
+byte[] hash = new byte[8];
+byte[] previousHash = iv.clone();
+
+for (int i = 0; i < input.length; i += 8) {
+KeyParameter p = new KeyParameter(previousHash);
+cipher.init(true, p);
+desOut = new byte[cipher.getOutputSize(8)];
+int outputLen = cipher.processBytes(input, i, 8, desOut, 0);
+
+try {
+cipher.doFinal(desOut, 0);
+
+// xor magix
+for (int j = 0; j < hash.length; j++)
+hash[j] = (byte) ((desOut[j] ^ desOut[j + 8]) ^ previousHash[j]);
+
+// swap
+byte[] tmp = hash;
+hash = previousHash;
+previousHash = tmp;
+
+} catch (CryptoException ce) {
+System.err.println(ce);
+}
+
+}
+
+ByteBuffer buffer = ByteBuffer.wrap(previousHash);
+buffer.order(ByteOrder.LITTLE_ENDIAN);
+return buffer.getLong();
+}
+
+\end{lstlisting}
+
