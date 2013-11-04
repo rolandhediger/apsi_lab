@@ -98,7 +98,7 @@ Die Hashfunktion wurde nach der Spezifikation der Aufgabenstellung implementiert
 \subsection{Kollisionsgenerator}
 \subsubsection{Variationserzeugung}
 Lauf der Aufgabenstellung haben wir $2^{32}$ verschiedene Kombinationsmöglichkeiten pro Mail. Diese Kombinationen haben wir in einem Integer codiert, dabei repräsentiert ein Bit einen Platzhalter.   Zum Beispiel: Das zweite Bit steht auf 0, dann wird das Wort "vom Herzen" eingesetzt. So können wir jede Variation eindeutig bestimmen.
-
+Es lohnt sich nicht, nach jeder neu generierten Variation (je von einem Original-Mail und einem Fake-Mail) nach einer Kollision zu suchen, werden immer 1024 Variationen generiert und nachher nach Kollisionen gesucht.
 
 \subsection{Kollisionsdetektion}
 \subsubsection{Strategien}

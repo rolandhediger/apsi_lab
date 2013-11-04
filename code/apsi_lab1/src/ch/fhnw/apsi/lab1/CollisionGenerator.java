@@ -232,7 +232,7 @@ public class CollisionGenerator {
 		boolean useRandom = true;
 		Random rand = new Random();
 
-		// too annoyed, fix later
+		// too annoyed, clean up later
 		while (collisionsFound != nCollisions) {
 			for (int i = 0; i < 1024; i++) {
 				int hash;
