@@ -241,7 +241,7 @@ public class Company {
 			message.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate&acode=" + activationCode);
 			message.setSentDate(new Date());
 			// Send message
-			Transport.send(message, "edu\\jonas.schwammberger", "bla");
+			Transport.send(message, "edu\\jonas.schwammberger", "");
 			success = true;
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
