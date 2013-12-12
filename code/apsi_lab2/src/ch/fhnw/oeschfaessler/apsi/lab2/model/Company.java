@@ -35,9 +35,11 @@ public class Company {
 	public final int getId() {
 		return id;
 	}
+
 	public final void setId(int id) {
 		this.id = id;
 	}
+
 	public final String getUsername() {
 		return username;
 	}
@@ -122,86 +124,43 @@ public class Company {
 	    		errors.add("Ungültige Zeichen im Passwort");
 	    	}
 		}
-		
-	    if (name != null) {
-	    	if (name.trim().isEmpty()) {
-	    		errors.add("Firma eingeben");
-	    	} else if (name.trim().length() > 20) {
-	    		errors.add("Firma zu lang (max 20 Zeichen)");
-	    	} else if (!name.matches("[èéÈÉäöüÄÖÜß\\w\\s]+")) {
-	    		errors.add("Ungültige Zeichen in der Firmennamen");
-	    	}
-	    }
-	    if (address != null) {
-	    	if (address.trim().isEmpty()) {
-	    		errors.add("Adresse eingeben");
-	    	} else if (!address.matches("[èéÈÉäöüÄÖÜß-.\\w\\s]+")) {
-	    		errors.add("Ungültige Zeichen in der Adresse");
-	    	}
-	    }
-	    if (zip != 0) {
-	    	
-	    	try{
-	    		boolean zipResult = validateZipFromInternet(zip);
-	    	if (!zipResult){
-	    		errors.add("PLZ ist nicht in der Schweiz oder Lichtenstein gültig");
-	    	}
-	    	}catch(Exception e){
-	    		e.printStackTrace();
-	    		errors.add("PLZ könnte zu dieser Zeit nicht geprüft werden, bitte versuchen Sie nochmal")
-	    	}
-	    }
-	    if (town != null) {
-	    	if (town.trim().isEmpty()) {
-	    		errors.add("Stadt eingeben");
-	    	} else if (!address.matches("[èéÈÉäöüÄÖÜß-.\\w\\s]+")) {
-	    		errors.add("Ungültige Zeichen in der Stadt");
-	    	}
-	    }
-	    if (mail != null) {
-	        if (mail.trim().isEmpty()) {
-	            errors.add("Please enter email");
-	        } else if (!mail.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
-	            errors.add("Invalid email, please try again.");
-	        }
-	    }
+
+		if (name != null) {
+			if (name.trim().isEmpty()) {
+				errors.add("Firma eingeben");
+			} else if (name.trim().length() > 20) {
+				errors.add("Firma zu lang (max 20 Zeichen)");
+			} else if (!name.matches("[èéÈÉäöüÄÖÜß\\w\\s]+")) {
+				errors.add("Ungültige Zeichen in der Firmennamen");
+			}
+		}
+		if (address != null) {
+			if (address.trim().isEmpty()) {
+				errors.add("Adresse eingeben");
+			} else if (!address.matches("[èéÈÉäöüÄÖÜß-.\\w\\s]+")) {
+				errors.add("Ungültige Zeichen in der Adresse");
+			}
+		}
+		if (zip != 0) {
+			// TODO: validate ZIP
+		}
+		if (town != null) {
+			if (town.trim().isEmpty()) {
+				errors.add("Stadt eingeben");
+			} else if (!address.matches("[èéÈÉäöüÄÖÜß-.\\w\\s]+")) {
+				errors.add("Ungültige Zeichen in der Stadt");
+			}
+		}
+		if (mail != null) {
+			if (mail.trim().isEmpty()) {
+				errors.add("Please enter email");
+			} else if (!mail.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
+				errors.add("Invalid email, please try again.");
+			}
+		}
 		return errors;
 	}
 	
-	private boolean validateZipFromInternet(int inputZip) throws IOException {
-
-		String url = "http://www.post.ch/db/owa/pv_plz_pack/pr_main";
- 
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
- 
-		// optional default is GET
-		con.setRequestMethod("GET");
-		String USER_AGENT = "Mozilla/5.0";
- 
-		//add request header
-		con.setRequestProperty("User-Agent", USER_AGENT);
- 
-		int responseCode = con.getResponseCode();
-		
- 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
-        
-		if (response.toString().contains("Die Felder PLZ oder Ort sind obligatorisch") || response.toString().contains("Keine PLZ gefunden")){
-			return false;
-		}
-		return true;
-		
-	}
-
 	public final Company save() throws SQLException {
 		PreparedStatement stm;
 		if (id == 0) {
