@@ -1,11 +1,17 @@
 package ch.fhnw.oeschfaessler.apsi.lab2.model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -161,12 +167,12 @@ public class Company {
 			}
 		}
 		if (zip != 0) {
-			try{
-			boolean result = validateZipFromInternet(zip);
-			if (!result){
-				errors.add("Zip not valid");
-			}
-			}catch(Exception e){
+			try {
+				boolean result = validateZipFromInternet(zip);
+				if (!result) {
+					errors.add("Zip not valid");
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 				errors.add("Unable to check Zip, please try again later.");
 			}
@@ -212,13 +218,15 @@ public class Company {
 	public final boolean sendActivationCode() {
 		boolean success = false;
 		String mail = this.getMail();
+		mail = "super@duper.ch";
 		String activationCode = this.getActivation();
-		String from = "jonas.schwammberger@students.fhnw.ch";
-		String host = "smtp.fhnw.ch";
+		String from = "egemen.kaba@students.fhnw.ch";
+		String host = "smtp.students.fhnw.ch";
 
 		// Get system properties
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", host);
+		properties.setProperty("mail.smtp.port", "465");
 		Session session = Session.getDefaultInstance(properties);
 
 		try {
@@ -231,9 +239,9 @@ public class Company {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
 			message.setSubject("Please Activate Your Account");
 			message.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate&acode=" + activationCode);
-
+			message.setSentDate(new Date());
 			// Send message
-			Transport.send(message);
+			Transport.send(message, "edu\\jonas.schwammberger", "bla");
 			success = true;
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
@@ -318,37 +326,36 @@ public class Company {
 			return false;
 		return true;
 	}
+
 	private boolean validateZipFromInternet(int inputZip) throws IOException {
 
 		String url = "http://www.post.ch/db/owa/pv_plz_pack/pr_main";
- 
+
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
- 
+
 		// optional default is GET
 		con.setRequestMethod("GET");
 		String USER_AGENT = "Mozilla/5.0";
- 
+
 		//add request header
 		con.setRequestProperty("User-Agent", USER_AGENT);
- 
+
 		int responseCode = con.getResponseCode();
-		
- 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
- 
+
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
 		in.close();
-        
-		if (response.toString().contains("Die Felder PLZ oder Ort sind obligatorisch") || response.toString().contains("Keine PLZ gefunden")){
+
+		if (response.toString().contains("Die Felder PLZ oder Ort sind obligatorisch") || response.toString().contains("Keine PLZ gefunden")) {
 			return false;
 		}
 		return true;
-		
+
 	}
 }
