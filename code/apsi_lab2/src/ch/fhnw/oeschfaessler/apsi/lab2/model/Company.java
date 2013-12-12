@@ -307,7 +307,7 @@ public class Company {
 	}
 	private boolean validateZipFromInternet(int inputZip) throws IOException {
 
-		String url = "http://www.post.ch/db/owa/pv_plz_pack/pr_main";
+		String url = String.format("http://www.post.ch/db/owa/pv_plz_pack/pr_check_data?p_language=de&p_nap=%d&p_localita=&p_cantone=&p_tipo=luogo",inputZip);
  
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
