@@ -11,8 +11,8 @@ import org.bouncycastle.crypto.modes.PaddedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
 
 public class SimplifiedHash {
-	private final static byte[] iv = { (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010, (byte) 0b10101010,
-			(byte) 0b10101010 };
+	private final static byte[] iv = { (byte) 0b01010101, (byte) 0b01010101, (byte) 0b01010101, (byte) 0b01010101, (byte) 0b01010101, (byte) 0b01010101, (byte) 0b01010101,
+			(byte) 0b01010101 };
 
 	private byte[] preprocess(byte[] input) {
 		int mLength = input.length;
