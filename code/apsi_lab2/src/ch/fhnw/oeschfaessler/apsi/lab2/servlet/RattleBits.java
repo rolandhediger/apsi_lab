@@ -20,6 +20,7 @@ public class RattleBits extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final Controller controller;
+	private final java.sql.Connection con;
 
 	/**
 	 * @throws SQLException
@@ -29,7 +30,8 @@ public class RattleBits extends HttpServlet {
 	public RattleBits() throws SQLException, ClassNotFoundException {
 		super();
 		Class.forName("com.mysql.jdbc.Driver");
-		controller = new Controller(DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=root"));
+		con = DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=root");
+		controller = new Controller(con);
 	}
 
 	/**
@@ -48,7 +50,6 @@ public class RattleBits extends HttpServlet {
 		} else {
 			controller.indexPage(request, response);
 		}
-
 	}
 
 	/**
@@ -63,6 +64,17 @@ public class RattleBits extends HttpServlet {
 			controller.loginPage(request, response);
 		}
 
+	}
+
+	@Override
+	public void destroy() {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.destroy();
 	}
 
 }

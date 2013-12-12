@@ -25,6 +25,18 @@
 </ul>
 <table>
 	<tr>
+		<th>Username:</th>
+		<td><input type="text" name="username" value="${param.username}"/></td>
+	</tr>
+	<tr>
+		<th>Password:</th>
+		<td><input type="password" name="password" value="${param.password}" /></td>
+	</tr>
+		<tr>
+		<th>Repeat Password:</th>
+		<td><input type="password" name="passwordrepeat" value="${param.passwordrepeat}" /></td>
+	</tr>
+	<tr>
 		<th>Firma:</th>
 		<td><input type="text" name="firma" value="${param.firma}"/></td>
 	</tr>

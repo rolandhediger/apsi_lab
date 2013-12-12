@@ -15,11 +15,11 @@ import ch.fhnw.oeschfaessler.apsi.lab2.model.Company;
 
 public class Controller {
 
-	private static String REGISTER = "rattle_bits/register.jsp";
-	private static String SUCCESS = "rattle_bits/success.jsp";
-	private static String LOGIN = "rattle_bits/login.jsp";
-	private static String INDEX = "rattle_bits/index.jsp";
-	private static String OVERVIEW = "rattle_bits/overview.jsp";
+	private static final String REGISTER = "rattle_bits/register.jsp";
+	private static final String SUCCESS = "rattle_bits/success.jsp";
+	private static final String LOGIN = "rattle_bits/login.jsp";
+	private static final String INDEX = "rattle_bits/index.jsp";
+	private static final String OVERVIEW = "rattle_bits/overview.jsp";
 
 	private final Connection con;
 
@@ -40,7 +40,7 @@ public class Controller {
 		Company c = new Company(con);
 		boolean activate = false;
 		try {
-			activate = c.activate();
+			activate = c.activate(request.getParameter("acode"));
 		} catch (SQLException e) {
 			messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
 		}
@@ -60,7 +60,12 @@ public class Controller {
 	public void regsiterPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> messages = new ArrayList<>();
 		Company c = new Company(con);
-		c.setName(request.getParameter("firma"));
+		c.setUsername(request.getParameter("username"));
+		String pwd = request.getParameter("password");
+		if (pwd != null && pwd.equals(request.getParameter("passwordrepeat")))
+			c.setPassword(pwd);
+
+		c.setCompanyName(request.getParameter("firma"));
 		c.setAddress(request.getParameter("address"));
 		try {
 			c.setZip(Integer.parseInt(request.getParameter("plz")));
@@ -70,7 +75,7 @@ public class Controller {
 		c.setTown(request.getParameter("town"));
 		c.setMail(request.getParameter("mail"));
 		messages.addAll(c.validate());
-		request.setAttribute("firma", c.getName());
+		request.setAttribute("firma", c.getCompanyName());
 		request.setAttribute("address", c.getAddress());
 		request.setAttribute("plz", String.valueOf(c.getZip()));
 		request.setAttribute("town", c.getTown());
@@ -79,18 +84,20 @@ public class Controller {
 			request.setAttribute("messages", messages);
 			request.getRequestDispatcher(REGISTER).forward(request, response);
 		} else {
-			String activationCode = UUID.randomUUID().toString();
-			c.setActivation(activationCode);
+			c.setActivation(UUID.randomUUID().toString());
 			try {
+				c.hashPassword();
 				c.save();
 			} catch (SQLException e) {
 				messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
 				request.setAttribute("messages", messages);
 				request.getRequestDispatcher(REGISTER).forward(request, response);
+				e.printStackTrace();
+				return;
 			}
-
 			c.sendActivationCode();
 			request.setAttribute("message", "Registrierung erfolgreich, bitte warten sie auf den Aktivierungslink per Mail");
+
 			request.getRequestDispatcher(SUCCESS).forward(request, response);
 		}
 	}
@@ -100,7 +107,7 @@ public class Controller {
 		Company c = new Company(con);
 		boolean login = false;
 		try {
-			login = c.checkLogin();
+			login = c.checkLogin(request.getParameter("user"), request.getParameter("password"));
 		} catch (SQLException e) {
 			messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
 		}

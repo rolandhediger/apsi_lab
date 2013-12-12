@@ -3,11 +3,13 @@ package ch.fhnw.oeschfaessler.apsi.lab2.model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -27,7 +30,7 @@ public class Company {
 	private int id;
 	private String username;
 	private String password;
-	private String name;
+	private String companyName;
 	private String address;
 	private int zip;
 	private String town;
@@ -58,21 +61,24 @@ public class Company {
 		return password;
 	}
 
-	public final void setPassword(String password, boolean hash) {
+	public final void setPassword(String password) {
+		this.password = password;
+
+	}
+
+	public final void hashPassword() {
 		try {
-			this.password = hash ? String.valueOf(MessageDigest.getInstance("SHA-256").digest(password.getBytes())) : password;
+			this.password = String.valueOf(MessageDigest.getInstance("SHA-256").digest(password.getBytes()));
 		} catch (NoSuchAlgorithmException e) {
-			this.password = password;
 		}
-
 	}
 
-	public final String getName() {
-		return name;
+	public final String getCompanyName() {
+		return companyName;
 	}
 
-	public final void setName(String name) {
-		this.name = name;
+	public final void setCompanyName(String name) {
+		this.companyName = name;
 	}
 
 	public final String getAddress() {
@@ -115,14 +121,32 @@ public class Company {
 		this.activation = activation;
 	}
 
-	public boolean checkLogin() throws SQLException {
-		// TODO: implement check login
-		return false;
+	public boolean checkLogin(String user, String password) throws SQLException {
+		if (password == null || username == null)
+			return false;
+
+		PreparedStatement stm = con
+				.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE username = ? AND password = ? AND activation IS NULL");
+		stm.setString(1, user);
+		stm.setString(2, hash(password));
+		ResultSet rs = stm.executeQuery();
+		if (rs.next()) {
+			id = rs.getInt(1);
+			username = rs.getString(2);
+			companyName = rs.getString(3);
+			address = rs.getString(4);
+			zip = rs.getInt(5);
+			town = rs.getString(6);
+			mail = rs.getString(7);
+			return true;
+		} else
+			return false;
 	}
 
-	public boolean activate() throws SQLException {
-		// TODO: Activate
-		return false;
+	public boolean activate(String activationCode) throws SQLException {
+		PreparedStatement stm = con.prepareStatement("UPDATE company SET activation = NULL WHERE activation = ?");
+		stm.setString(1, activationCode);
+		return stm.executeUpdate() == 1 ? true : false;
 	}
 
 	public List<String> validate() {
@@ -137,6 +161,8 @@ public class Company {
 			} else if (!username.matches(cleanString)) {
 				errors.add("Ungültige Zeichen im Usernamen");
 			}
+		} else {
+			errors.add("Username is required");
 		}
 
 		if (password != null) {
@@ -147,16 +173,20 @@ public class Company {
 			} else if (!password.matches(cleanString)) {
 				errors.add("Ungültige Zeichen im Passwort");
 			}
+		} else {
+			errors.add("Is required and has to be the same as Repeat Password");
 		}
 
-		if (name != null) {
-			if (name.trim().isEmpty()) {
+		if (companyName != null) {
+			if (companyName.trim().isEmpty()) {
 				errors.add("Firma eingeben");
-			} else if (name.trim().length() > 20) {
+			} else if (companyName.trim().length() > 20) {
 				errors.add("Firma zu lang (max 20 Zeichen)");
-			} else if (!name.matches(cleanString)) {
+			} else if (!companyName.matches(cleanString)) {
 				errors.add("Ungültige Zeichen in der Firmennamen");
 			}
+		} else {
+			errors.add("Company Name is required");
 		}
 		if (address != null) {
 			if (address.trim().isEmpty()) {
@@ -164,10 +194,13 @@ public class Company {
 			} else if (!address.matches(cleanString)) {
 				errors.add("Ungültige Zeichen in der Adresse");
 			}
+		} else {
+			errors.add("Address is required");
 		}
+
 		if (zip != 0) {
 			try {
-				boolean result = validateZipFromInternet(zip);
+				boolean result = zip >= 1000 ? validateZipFromInternet(zip) : false;
 				if (!result) {
 					errors.add("Zip not valid");
 				}
@@ -175,13 +208,18 @@ public class Company {
 				e.printStackTrace();
 				errors.add("Unable to check Zip, please try again later.");
 			}
+		} else {
+			errors.add("Zip is required");
 		}
+
 		if (town != null) {
 			if (town.trim().isEmpty()) {
 				errors.add("Stadt eingeben");
 			} else if (!address.matches(cleanString)) {
 				errors.add("Ungültige Zeichen in der Stadt");
 			}
+		} else {
+			errors.add("Town name is required");
 		}
 		if (mail != null) {
 			if (mail.trim().isEmpty()) {
@@ -189,6 +227,8 @@ public class Company {
 			} else if (!mail.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
 				errors.add("Invalid email, please try again.");
 			}
+		} else {
+			errors.add("Valid E-Mail Adress is required");
 		}
 		return errors;
 	}
@@ -203,47 +243,55 @@ public class Company {
 		}
 		stm.setString(1, username);
 		stm.setString(2, password);
-		stm.setString(3, name);
+		stm.setString(3, companyName);
 		stm.setString(4, address);
 		stm.setInt(5, zip);
 		stm.setString(6, town);
 		stm.setString(7, mail);
 		stm.setString(8, activation);
 		stm.execute();
-		con.close();
 		return this;
 	}
 
 	public final boolean sendActivationCode() {
 		boolean success = false;
-		String mail = this.getMail();
-		mail = "eaf";
 		String activationCode = this.getActivation();
-		String from = "egemen.kaba@students.fhnw.ch";
-		String host = "smtp.students.fhnw.ch";
+		String mail = this.getMail();
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", "rolandh.tk");
+		props.put("mail.smtp.port", "25");
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "false");
+		props.put("mail.smtp.tls", "false");
+		props.put("mail.smtp.user", "apsi@rolandh.tk");
+		props.put("mail.password", "apsitest");
 
-		// Get system properties
-		Properties properties = System.getProperties();
-		properties.setProperty("mail.smtp.host", host);
-		properties.setProperty("mail.smtp.port", "465");
-		Session session = Session.getDefaultInstance(properties);
+		javax.mail.Authenticator auth = new javax.mail.Authenticator() {
+			@Override
+			public PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("apsi@rolandh.tk", "apsitest");
+			}
+		};
 
+		Session session = Session.getDefaultInstance(props, auth);
+
+		Message msg = new MimeMessage(session);
 		try {
-			MimeMessage message = new MimeMessage(session);
-
-			// Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
-
-			// Set To: header field of the header.
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
-			message.setSubject("Please Activate Your Account");
-			message.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate&acode=" + activationCode);
-			message.setSentDate(new Date());
-			// Send message
-			Transport.send(message, "edu\\jonas.schwammberger", "");
+			msg.setFrom(new InternetAddress("apsi@rolandh.tk", "apsi"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(mail, "TOEXAMPLE"));
+			msg.setSubject("Please Activate Your Account");
+			msg.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate&acode=" + activationCode);
+			msg.setSentDate(new Date());
+			msg.saveChanges();
+			Transport.send(msg);
 			success = true;
-		} catch (MessagingException mex) {
-			mex.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return success;
@@ -262,7 +310,7 @@ public class Company {
 		result = prime * result + (con == null ? 0 : con.hashCode());
 		result = prime * result + id;
 		result = prime * result + (mail == null ? 0 : mail.hashCode());
-		result = prime * result + (name == null ? 0 : name.hashCode());
+		result = prime * result + (companyName == null ? 0 : companyName.hashCode());
 		result = prime * result + (password == null ? 0 : password.hashCode());
 		result = prime * result + (town == null ? 0 : town.hashCode());
 		result = prime * result + (username == null ? 0 : username.hashCode());
@@ -301,10 +349,10 @@ public class Company {
 				return false;
 		} else if (!mail.equals(other.mail))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (companyName == null) {
+			if (other.companyName != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!companyName.equals(other.companyName))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -346,5 +394,15 @@ public class Company {
 
 		return bla;
 
+	}
+
+	private static String hash(String s) {
+		byte[] data = null;
+		try {
+			data = MessageDigest.getInstance("SHA-256").digest(s.getBytes());
+		} catch (NoSuchAlgorithmException e) {
+			data = s.getBytes();
+		}
+		return new String(data);
 	}
 }
