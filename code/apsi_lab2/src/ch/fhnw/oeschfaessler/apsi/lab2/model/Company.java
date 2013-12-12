@@ -161,7 +161,15 @@ public class Company {
 			}
 		}
 		if (zip != 0) {
-			// TODO: validate ZIP
+			try{
+			boolean result = validateZipFromInternet(zip);
+			if (!result){
+				errors.add("Zip not valid");
+			}
+			}catch(Exception e){
+				e.printStackTrace();
+				errors.add("Unable to check Zip, please try again later.");
+			}
 		}
 		if (town != null) {
 			if (town.trim().isEmpty()) {
@@ -309,5 +317,38 @@ public class Company {
 		if (zip != other.zip)
 			return false;
 		return true;
+	}
+	private boolean validateZipFromInternet(int inputZip) throws IOException {
+
+		String url = "http://www.post.ch/db/owa/pv_plz_pack/pr_main";
+ 
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+ 
+		// optional default is GET
+		con.setRequestMethod("GET");
+		String USER_AGENT = "Mozilla/5.0";
+ 
+		//add request header
+		con.setRequestProperty("User-Agent", USER_AGENT);
+ 
+		int responseCode = con.getResponseCode();
+		
+ 
+		BufferedReader in = new BufferedReader(
+		        new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+ 
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+        
+		if (response.toString().contains("Die Felder PLZ oder Ort sind obligatorisch") || response.toString().contains("Keine PLZ gefunden")){
+			return false;
+		}
+		return true;
+		
 	}
 }
