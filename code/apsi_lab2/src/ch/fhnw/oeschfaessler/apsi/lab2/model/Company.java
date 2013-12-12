@@ -1,5 +1,12 @@
 package ch.fhnw.oeschfaessler.apsi.lab2.model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -133,7 +140,16 @@ public class Company {
 	    	}
 	    }
 	    if (zip != 0) {
-	    	// TODO: validate ZIP
+	    	
+	    	try{
+	    		boolean zipResult = validateZipFromInternet(zip);
+	    	if (!zipResult){
+	    		errors.add("PLZ ist nicht in der Schweiz oder Lichtenstein gültig");
+	    	}
+	    	}catch(Exception e){
+	    		e.printStackTrace();
+	    		errors.add("PLZ könnte zu dieser Zeit nicht geprüft werden, bitte versuchen Sie nochmal")
+	    	}
 	    }
 	    if (town != null) {
 	    	if (town.trim().isEmpty()) {
@@ -152,6 +168,40 @@ public class Company {
 		return errors;
 	}
 	
+	private boolean validateZipFromInternet(int inputZip) throws IOException {
+
+		String url = "http://www.post.ch/db/owa/pv_plz_pack/pr_main";
+ 
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+ 
+		// optional default is GET
+		con.setRequestMethod("GET");
+		String USER_AGENT = "Mozilla/5.0";
+ 
+		//add request header
+		con.setRequestProperty("User-Agent", USER_AGENT);
+ 
+		int responseCode = con.getResponseCode();
+		
+ 
+		BufferedReader in = new BufferedReader(
+		        new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+ 
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+        
+		if (response.toString().contains("Die Felder PLZ oder Ort sind obligatorisch") || response.toString().contains("Keine PLZ gefunden")){
+			return false;
+		}
+		return true;
+		
+	}
+
 	public final Company save() throws SQLException {
 		PreparedStatement stm;
 		if (id == 0) {

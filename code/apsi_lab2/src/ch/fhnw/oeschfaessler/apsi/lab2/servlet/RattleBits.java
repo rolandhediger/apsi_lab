@@ -24,11 +24,13 @@ public class RattleBits extends HttpServlet {
        
     /**
      * @throws SQLException 
+     * @throws ClassNotFoundException 
      * @see HttpServlet#HttpServlet()
      */
-    public RattleBits() throws SQLException {
+    public RattleBits() throws SQLException, ClassNotFoundException {
         super();
-        controller = new Controller(DriverManager.getConnection("jdbc:mysql://localhost/apsi_lab?user=root"));
+        Class.forName("com.mysql.jdbc.Driver");
+        controller = new Controller(DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=apsiuser&password=apsiuser"));
     }
 
 	/**
