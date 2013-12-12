@@ -281,7 +281,7 @@ public class Company {
 			msg.setFrom(new InternetAddress("apsi@rolandh.tk", "apsi"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(mail, "TOEXAMPLE"));
 			msg.setSubject("Please Activate Your Account");
-			msg.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate&acode=" + activationCode);
+			msg.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/RattleBits?page=activate&acode=" + activationCode);
 			msg.setSentDate(new Date());
 			msg.saveChanges();
 			Transport.send(msg);
