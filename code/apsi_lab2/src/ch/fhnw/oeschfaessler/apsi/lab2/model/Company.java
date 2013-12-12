@@ -7,6 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class Company {
 
@@ -49,6 +57,7 @@ public class Company {
 		try {
 
 			this.password = hash ? new String(MessageDigest.getInstance("SHA-256").digest(password.getBytes())) : password;
+
 		} catch (NoSuchAlgorithmException e) {
 			this.password = password;
 		}
@@ -108,7 +117,7 @@ public class Company {
 	}
 
 	public boolean activate() throws SQLException {
-		// TODO: implement activate
+		// TODO: Activate
 		return false;
 	}
 
@@ -193,8 +202,36 @@ public class Company {
 	}
 
 	public final boolean sendActivationCode() {
-		// TODO: implement activation code sending
-		return false;
+		boolean success = false;
+		String mail = this.getMail();
+		String activationCode = this.getActivation();
+		String from = "jonas.schwammberger@students.fhnw.ch";
+		String host = "smtp.fhnw.ch";
+
+		// Get system properties
+		Properties properties = System.getProperties();
+		properties.setProperty("mail.smtp.host", host);
+		Session session = Session.getDefaultInstance(properties);
+
+		try {
+			MimeMessage message = new MimeMessage(session);
+
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+			message.setSubject("Please Activate Your Account");
+			message.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate" + activationCode);
+
+			// Send message
+			Transport.send(message);
+			success = true;
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+		}
+
+		return success;
 	}
 
 	public final boolean sendLoginData() {

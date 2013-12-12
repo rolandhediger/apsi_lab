@@ -38,7 +38,6 @@ public class RattleBits extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String page = request.getParameter("page");
 		if ("login".equals(page)) {
 			controller.loginPage(request, response);
@@ -58,7 +57,6 @@ public class RattleBits extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		if (request.getParameter("register") != null) {
 			controller.regsiterPage(request, response);
 		} else if (request.getParameter("login") != null) {
