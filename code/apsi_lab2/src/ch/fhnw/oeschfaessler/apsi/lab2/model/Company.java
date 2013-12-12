@@ -156,7 +156,7 @@ public class Company {
 		if (address != null) {
 			if (address.trim().isEmpty()) {
 				errors.add("Adresse eingeben");
-			} else if (!address.matches("[èéÈÉäöüÄÖÜß-.\\w\\s]+")) {
+			} else if (!address.matches("[èéÈÉäöüÄÖÜß\\w\\s]+")) {
 				errors.add("Ungültige Zeichen in der Adresse");
 			}
 		}
@@ -166,7 +166,7 @@ public class Company {
 		if (town != null) {
 			if (town.trim().isEmpty()) {
 				errors.add("Stadt eingeben");
-			} else if (!address.matches("[èéÈÉäöüÄÖÜß-.\\w\\s]+")) {
+			} else if (!address.matches("[èéÈÉäöüÄÖÜß\\w\\s]+")) {
 				errors.add("Ungültige Zeichen in der Stadt");
 			}
 		}
@@ -222,7 +222,7 @@ public class Company {
 			// Set To: header field of the header.
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
 			message.setSubject("Please Activate Your Account");
-			message.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate" + activationCode);
+			message.setText("Please klick here to activate your Rattle Bits Account:\n" + "http://localhost:8080/AbsiUebung2/?page=activate&acode=" + activationCode);
 
 			// Send message
 			Transport.send(message);
