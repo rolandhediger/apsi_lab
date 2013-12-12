@@ -3,7 +3,6 @@ package ch.fhnw.oeschfaessler.apsi.lab2.model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -329,33 +328,23 @@ public class Company {
 
 	private boolean validateZipFromInternet(int inputZip) throws IOException {
 
-		String url = String.format("http://www.post.ch/db/owa/pv_plz_pack/pr_check_data?p_language=de&p_nap=%d&p_localita=&p_cantone=&p_tipo=luogo",inputZip);
+		String url = String.format("http://www.post.ch/db/owa/pv_plz_pack/pr_check_data?p_language=de&p_nap=%d&p_localita=&p_cantone=&p_tipo=luogo", inputZip);
 
 		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-		// optional default is GET
-		con.setRequestMethod("GET");
-		String USER_AGENT = "Mozilla/5.0";
-
-		//add request header
-		con.setRequestProperty("User-Agent", USER_AGENT);
-
-		int responseCode = con.getResponseCode();
-
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(obj.openStream()));
 		String inputLine;
-		StringBuffer response = new StringBuffer();
 
+		boolean bla = true;
 		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
+			if (inputLine.contains("Keine PLZ gefunden")) {
+				bla = false;
+				break;
+			}
+
 		}
 		in.close();
 
-		if (response.toString().contains("Die Felder PLZ oder Ort sind obligatorisch") || response.toString().contains("Keine PLZ gefunden")) {
-			return false;
-		}
-		return true;
+		return bla;
 
 	}
 }
