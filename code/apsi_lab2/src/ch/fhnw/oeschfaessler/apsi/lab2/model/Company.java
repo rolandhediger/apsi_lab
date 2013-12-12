@@ -218,7 +218,7 @@ public class Company {
 	public final boolean sendActivationCode() {
 		boolean success = false;
 		String mail = this.getMail();
-		mail = "super@duper.ch";
+		mail = "eaf";
 		String activationCode = this.getActivation();
 		String from = "egemen.kaba@students.fhnw.ch";
 		String host = "smtp.students.fhnw.ch";
