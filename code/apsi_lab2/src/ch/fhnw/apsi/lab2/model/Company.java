@@ -67,10 +67,7 @@ public class Company {
 	}
 
 	public final void hashPassword() {
-		try {
-			this.password = String.valueOf(MessageDigest.getInstance("SHA-256").digest(password.getBytes()));
-		} catch (NoSuchAlgorithmException e) {
-		}
+		this.password = hash(this.password);
 	}
 
 	public final String getCompanyName() {
@@ -122,8 +119,9 @@ public class Company {
 	}
 
 	public boolean checkLogin(String user, String password) throws SQLException {
-		if (password == null || username == null)
+		if (password == null || user == null) {
 			return false;
+		}
 
 		PreparedStatement stm = con
 				.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE username = ? AND password = ? AND activation IS NULL");

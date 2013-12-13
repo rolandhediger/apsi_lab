@@ -107,7 +107,7 @@ public class Controller {
 		Company c = new Company(con);
 		boolean login = false;
 		try {
-			login = c.checkLogin(request.getParameter("user"), request.getParameter("password"));
+			login = c.checkLogin(request.getParameter("username"), request.getParameter("password"));
 		} catch (SQLException e) {
 			messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
 		}

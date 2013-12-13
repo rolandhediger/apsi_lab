@@ -8,6 +8,6 @@
 </head>
 <body>
 ${message}<br />
-<a href="/Aapsi_lab2/RattleBits">zur Startseite</a>
+<a href="/apsi_lab2/RattleBits">zur Startseite</a>
 </body>
 </html>
