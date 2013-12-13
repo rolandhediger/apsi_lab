@@ -151,47 +151,37 @@ public class Company {
 
 	public List<String> validate() {
 		List<String> errors = new LinkedList<>();
-		String cleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\w\\S-_.]+";
-
+		String usrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{4,64}";
+		String pwdCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{8,64}";
+		String adrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{0,255}";
+		String townCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,255}";
+		String companyCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,20}";
 		if (username != null) {
-			if (username.trim().length() < 4) {
-				errors.add("Username zu kurz");
-			} else if (username.trim().length() > 64) {
-				errors.add("Username zu lang");
-			} else if (!username.matches(cleanString)) {
-				errors.add("Ungültige Zeichen im Usernamen");
+			if (!username.matches(usrCleanString)) {
+				errors.add("Invalid Username");
 			}
 		} else {
 			errors.add("Username is required");
 		}
 
 		if (password != null) {
-			if (password.trim().length() < 8) {
-				errors.add("Passwort zu kurz");
-			} else if (password.trim().length() > 64) {
-				errors.add("Passwort zu lang");
-			} else if (!password.matches(cleanString)) {
-				errors.add("Ungültige Zeichen im Passwort");
+			if (!password.matches(pwdCleanString)) {
+				errors.add("Invalid Password");
 			}
 		} else {
 			errors.add("Is required and has to be the same as Repeat Password");
 		}
 
 		if (companyName != null) {
-			if (companyName.trim().isEmpty()) {
-				errors.add("Firma eingeben");
-			} else if (companyName.trim().length() > 20) {
-				errors.add("Firma zu lang (max 20 Zeichen)");
-			} else if (!companyName.matches(cleanString)) {
-				errors.add("Ungültige Zeichen in der Firmennamen");
+			if (!companyName.matches(companyCleanString)) {
+				errors.add("Invalid Company Name");
 			}
 		} else {
 			errors.add("Company Name is required");
 		}
+
 		if (address != null) {
-			if (address.trim().isEmpty()) {
-				errors.add("Adresse eingeben");
-			} else if (!address.matches(cleanString)) {
+			if (!address.matches(adrCleanString)) {
 				errors.add("Ungültige Zeichen in der Adresse");
 			}
 		} else {
@@ -214,9 +204,9 @@ public class Company {
 
 		if (town != null) {
 			if (town.trim().isEmpty()) {
-				errors.add("Stadt eingeben");
-			} else if (!address.matches(cleanString)) {
-				errors.add("Ungültige Zeichen in der Stadt");
+				errors.add("Town name is required");
+			} else if (!address.matches(townCleanString)) {
+				errors.add("Invalid Town Name");
 			}
 		} else {
 			errors.add("Town name is required");
