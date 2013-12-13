@@ -26,6 +26,11 @@ import javax.mail.internet.MimeMessage;
 
 public class Company {
 
+	private static final String usrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{4,64}";
+	private static final String pwdCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{8,64}";
+	private static final String adrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{0,255}";
+	private static final String townCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,255}";
+	private static final String companyCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,20}";
 	private final Connection con;
 	private int id;
 	private String username;
@@ -123,22 +128,24 @@ public class Company {
 			return false;
 		}
 
-		PreparedStatement stm = con
-				.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE username = ? AND password = ? AND activation IS NULL");
-		stm.setString(1, user);
-		stm.setString(2, hash(password));
-		ResultSet rs = stm.executeQuery();
-		if (rs.next()) {
-			id = rs.getInt(1);
-			username = rs.getString(2);
-			companyName = rs.getString(3);
-			address = rs.getString(4);
-			zip = rs.getInt(5);
-			town = rs.getString(6);
-			mail = rs.getString(7);
-			return true;
-		} else
-			return false;
+		if (!user.matches(usrCleanString) && !password.matches(pwdCleanString)) {
+			PreparedStatement stm = con
+					.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE username = ? AND password = ? AND activation IS NULL");
+			stm.setString(1, user);
+			stm.setString(2, hash(password));
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+				username = rs.getString(2);
+				companyName = rs.getString(3);
+				address = rs.getString(4);
+				zip = rs.getInt(5);
+				town = rs.getString(6);
+				mail = rs.getString(7);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean activate(String activationCode) throws SQLException {
@@ -149,11 +156,7 @@ public class Company {
 
 	public List<String> validate() {
 		List<String> errors = new LinkedList<>();
-		String usrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{4,64}";
-		String pwdCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{8,64}";
-		String adrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{0,255}";
-		String townCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,255}";
-		String companyCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,20}";
+
 		if (username != null) {
 			if (!username.matches(usrCleanString)) {
 				errors.add("Invalid Username");
