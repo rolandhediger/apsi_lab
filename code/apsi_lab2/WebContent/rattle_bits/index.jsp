@@ -7,6 +7,6 @@
 <title>RattleBits</title>
 </head>
 <body>
-<a href="/AbsiUebung2/RattleBits?page=register">register</a> | <a href="/AbsiUebung2/RattleBits?page=login">login</a>
+<a href="/apsi_lab2/RattleBits?page=register">register</a> | <a href="/apsi_lab2/RattleBits?page=login">login</a>
 </body>
 </html>

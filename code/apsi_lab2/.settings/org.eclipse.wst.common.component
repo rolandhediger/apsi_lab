@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="AbsiUebung2">
+    <wb-module deploy-name="apsi_lab2">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="AbsiUebung2"/>
-        <property name="java-output-path" value="/AbsiUebung2/build/classes"/>
+        <property name="java-output-path" value="/apsi_lab2/build/classes"/>
+        <property name="context-root" value="apsi_lab2"/>
     </wb-module>
 </project-modules>

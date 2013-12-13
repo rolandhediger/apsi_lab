@@ -1,4 +1,4 @@
-package ch.fhnw.oeschfaessler.apsi.lab2.servlet;
+package ch.fhnw.apsi.lab2.servlet;
 
 import java.io.IOException;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ch.fhnw.oeschfaessler.apsi.lab2.Controller;
+import ch.fhnw.apsi.lab2.Controller;
 
 /**
  * Servlet implementation class RattleBits

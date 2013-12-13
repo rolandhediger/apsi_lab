@@ -1,4 +1,4 @@
-package ch.fhnw.oeschfaessler.apsi.lab2;
+package ch.fhnw.apsi.lab2;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ch.fhnw.oeschfaessler.apsi.lab2.model.Company;
+import ch.fhnw.apsi.lab2.model.Company;
 
 public class Controller {
 
