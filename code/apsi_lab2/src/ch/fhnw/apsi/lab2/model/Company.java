@@ -146,7 +146,7 @@ public class Company {
 			return false;
 		}
 
-		if (!user.matches(usrCleanString) && !password.matches(pwdCleanString)) {
+		if (user.matches(usrCleanString) && password.matches(pwdCleanString)) {
 			PreparedStatement stm = con
 					.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE username = ? AND password = ? AND activation IS NULL");
 			stm.setString(1, user);
@@ -165,6 +165,62 @@ public class Company {
 			}
 		}
 		return false;
+	}
+
+	private boolean checkPassword(String oldPassword) {
+		if (oldPassword != null && oldPassword.matches(pwdCleanString)) {
+			return this.password.equals(hash(oldPassword));
+		}
+
+		return false;
+	}
+
+	public List<String> updatePassword(String oldPwd, String newPwd, String newPwdRepeat) {
+		List<String> errors = new LinkedList<>();
+		if (valid) {
+			if (newPwd != null && newPwd.equals(newPwdRepeat)) {
+				if (checkPassword(oldPwd) && newPwd.matches(pwdCleanString)) {
+					try {
+						PreparedStatement stm = con.prepareStatement("UPDATE Company SET password = ? WHERE id = ?");
+						stm.setString(1, hash(newPwd));
+						stm.setInt(2, this.id);
+					} catch (SQLException e) {
+						errors.add("Database error, please try again later");
+					}
+				} else {
+					errors.add("old password incorrect");
+				}
+			} else {
+				errors.add("New Passwords are invalid or do not match");
+			}
+		} else {
+			errors.add("Application error, please contact your admin");
+		}
+
+		return errors;
+	}
+
+	public boolean loadCompany(int userId) {
+		try {
+			PreparedStatement stm = con
+					.prepareStatement("SELECT `id`, `username`, `password`,`name`, `address`, `zip`, `town`, `mail` FROM company WHERE id = ? AND activation IS NULL");
+			stm.setInt(1, userId);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+				username = rs.getString(2);
+				password = rs.getString(3);
+				companyName = rs.getString(4);
+				address = rs.getString(5);
+				zip = rs.getInt(6);
+				town = rs.getString(7);
+				mail = rs.getString(8);
+				valid = true;
+			}
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean activate(String activationCode) throws SQLException {

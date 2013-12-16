@@ -33,7 +33,7 @@
 		<td><input type="password" name="password" value="${param.password}" /></td>
 	</tr>
 	<tr>
-		<td colspan="2"><input type="submit" name="login" value="Registrieren" /></td>
+		<td colspan="2"><input type="submit" name="login" value="Register" /></td>
 	</tr>
 </table>
 </form>
