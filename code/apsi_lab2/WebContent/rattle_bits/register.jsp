@@ -37,19 +37,19 @@
 		<td><input type="password" name="passwordrepeat" value="${param.passwordrepeat}" /></td>
 	</tr>
 	<tr>
-		<th>Firma:</th>
+		<th>Company:</th>
 		<td><input type="text" name="firma" value="${param.firma}"/></td>
 	</tr>
 	<tr>
-		<th>Adresse:</th>
+		<th>Address:</th>
 		<td><input type="text" name="address" value="${param.address}" /></td>
 	</tr>
 	<tr>
-		<th>PLZ:</th>
+		<th>Postal Code/Zip:</th>
 		<td><input type="text" name="plz" value="${param.plz}" /></td>
 	</tr>
 	<tr>
-		<th>Stadt:</th>
+		<th>Town:</th>
 		<td><input type="text" name="town" value="${param.town}" /></td>
 	</tr>
 	<tr>
@@ -57,7 +57,7 @@
 		<td><input type="text" name="mail" value="${param.mail}" /></td>
 	</tr>
 	<tr>
-		<td colspan="2"><input type="submit" name="register" value="Registrieren" /></td>
+		<td colspan="2"><input type="submit" name="register" value="Register" /></td>
 	</tr>
 </table>
 </form>

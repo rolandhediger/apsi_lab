@@ -30,7 +30,7 @@ public class Company {
 
 	private static final String usrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{4,64}";
 	private static final String pwdCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{8,64}";
-	private static final String adrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\d]{0,255}";
+	private static final String adrCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w\\s\\d]{0,255}";
 	private static final String townCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,255}";
 	private static final String companyCleanString = "[ôÔêÊâÂèéÈÉäöüÄÖÜß\\-\\._\\w]{0,20}";
 
@@ -80,9 +80,11 @@ public class Company {
 	}
 
 	public final void hashPassword() {
+		//Invariant : Only valid passwords are hashed see controller.
 		if (!hashed)
 			this.password = hash(this.password);
 		hashed = true;
+		valid = true;
 	}
 
 	public final String getCompanyName() {
@@ -203,7 +205,7 @@ public class Company {
 				errors.add("Invalid Password");
 			}
 		} else {
-			errors.add("Is required and has to be the same as Repeat Password");
+			errors.add(" Password is required and has to be the same as Repeat Password");
 		}
 
 		if (companyName != null) {
@@ -216,7 +218,7 @@ public class Company {
 
 		if (address != null) {
 			if (!address.matches(adrCleanString)) {
-				errors.add("Ungültige Zeichen in der Adresse");
+				errors.add("Address contains invalid characters");
 			}
 		} else {
 			errors.add("Address is required");
@@ -239,7 +241,7 @@ public class Company {
 		if (town != null) {
 			if (town.trim().isEmpty()) {
 				errors.add("Town name is required");
-			} else if (!address.matches(townCleanString)) {
+			} else if (!town.matches(townCleanString)) {
 				errors.add("Invalid Town Name");
 			}
 		} else {

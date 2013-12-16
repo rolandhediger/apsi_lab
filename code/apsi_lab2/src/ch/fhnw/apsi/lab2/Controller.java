@@ -42,11 +42,11 @@ public class Controller {
 		try {
 			activate = c.activate(request.getParameter("acode"));
 		} catch (SQLException e) {
-			messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
+			messages.add("Database error,please try again later");
 		}
 		if (activate) {
 			c.sendLoginData();
-			request.setAttribute("message", "Aktivierung erfolgreich! Sie bekommen ihr Username und Passwort per Mail zugesant.");
+			request.setAttribute("message", "Activation successful, you will recieve your username and password shortly.");
 			request.getRequestDispatcher(SUCCESS).forward(request, response);
 		} else {
 			if (messages.size() == 0)
@@ -89,14 +89,14 @@ public class Controller {
 				c.hashPassword();
 				c.save();
 			} catch (SQLException e) {
-				messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
+				messages.add("Database error,please try again later");
 				request.setAttribute("messages", messages);
 				request.getRequestDispatcher(REGISTER).forward(request, response);
 				e.printStackTrace();
 				return;
 			}
 			c.sendActivationCode();
-			request.setAttribute("message", "Registrierung erfolgreich, bitte warten sie auf den Aktivierungslink per Mail");
+			request.setAttribute("message", "Registration successful please check your email for the activation link");
 
 			request.getRequestDispatcher(SUCCESS).forward(request, response);
 		}
@@ -109,7 +109,7 @@ public class Controller {
 		try {
 			login = c.checkLogin(request.getParameter("username"), request.getParameter("password"));
 		} catch (SQLException e) {
-			messages.add("Datenbankverbindung fehlgeschlagen, bitte versuchen sie es später noch einmal");
+			messages.add("Database error,please try again later");
 		}
 		if (login) {
 			request.getSession().setAttribute("userId", c.getId());
@@ -117,7 +117,7 @@ public class Controller {
 			request.getRequestDispatcher(OVERVIEW).forward(request, response);
 		} else {
 			if (messages.size() == 0)
-				messages.add("username oder passwort ist ungültig");
+				messages.add("username or password invalid");
 			request.setAttribute("messages", messages);
 			request.getRequestDispatcher(LOGIN).forward(request, response);
 		}
