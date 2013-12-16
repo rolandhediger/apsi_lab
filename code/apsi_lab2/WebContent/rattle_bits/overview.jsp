@@ -9,15 +9,7 @@
 </head>
 <body>
 <form method="POST" action='/apsi_lab2/RattleBits' name="ChangePassword">
-<ul class="error">
-<%
-    List<String> messages = (List<String>)request.getAttribute("messages");
-	Iterator<String> it = messages.iterator();
-    while (it.hasNext()) {
-%>
-	<li><%= it.next() %></li>
-<% } %>
-</ul>
+
 <table>
 	<tr>
 		<th>Old Password:</th>
