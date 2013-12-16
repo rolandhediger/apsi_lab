@@ -32,7 +32,16 @@ public class Controller {
 	}
 
 	public void overviewPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO: overview / passwort change page
+		List<String> messages;
+		Company c = new Company(con);
+		Integer id = (Integer) request.getSession().getAttribute("userId");
+		c.loadCompany(id);
+		String oldPwd = request.getParameter("oldpassword");
+		String newPwd = request.getParameter("newpassword");
+		String newPwdRepeat = request.getParameter("newpasswordrepeat");
+		messages = c.updatePassword(oldPwd, newPwd, newPwdRepeat);
+		request.setAttribute("messages", messages);
+		request.getRequestDispatcher(OVERVIEW).forward(request, response);
 	}
 
 	public void activatePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,14 +59,14 @@ public class Controller {
 			request.getRequestDispatcher(SUCCESS).forward(request, response);
 		} else {
 			if (messages.size() == 0)
-				messages.add("activierungs code ist ungültig");
+				messages.add("Activation Code is invalid");
 			request.setAttribute("message", messages.get(0));
 			request.getRequestDispatcher(SUCCESS).forward(request, response);
 		}
 
 	}
 
-	public void regsiterPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void registerPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> messages = new ArrayList<>();
 		Company c = new Company(con);
 		c.setUsername(request.getParameter("username"));
@@ -70,7 +79,7 @@ public class Controller {
 		try {
 			c.setZip(Integer.parseInt(request.getParameter("plz")));
 		} catch (NumberFormatException e) {
-			messages.add("Ungültige PLZ");
+			messages.add("Invalid Postal Code");
 		}
 		c.setTown(request.getParameter("town"));
 		c.setMail(request.getParameter("mail"));
