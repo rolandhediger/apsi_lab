@@ -1,0 +1,14 @@
+Beispiel JSP Seite :
+\begin{lstlisting}[language=html]
+  <form method="POST" action='/apsi_lab2/RattleBits' name="login">
+  <ul class="error">
+<%
+    List<String> messages = (List<String>)request.getAttribute("messages");
+Iterator<String> it = messages.iterator();
+    while (it.hasNext()) {
+%>
+<li><%= it.next() %></li>
+<% } %>
+</ul>
+
+\end{lstlisting}
