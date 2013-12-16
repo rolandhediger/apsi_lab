@@ -47,6 +47,8 @@ public class RattleBits extends HttpServlet {
 			controller.registerPage(request, response);
 		} else if ("activate".equals(page)) {
 			controller.activatePage(request, response);
+		} else if (request.getParameter("login") != null) {
+			controller.overviewPage(request, response);
 		} else {
 			controller.indexPage(request, response);
 		}
@@ -62,8 +64,9 @@ public class RattleBits extends HttpServlet {
 			controller.registerPage(request, response);
 		} else if (request.getParameter("login") != null) {
 			controller.loginPage(request, response);
+		} else if (request.getParameter("login") != null) {
+			controller.overviewPage(request, response);
 		}
-
 	}
 
 	@Override

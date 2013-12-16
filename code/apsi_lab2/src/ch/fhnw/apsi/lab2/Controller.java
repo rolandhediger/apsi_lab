@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +33,7 @@ public class Controller {
 	}
 
 	public void overviewPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> messages;
+		List<String> messages = new LinkedList<>();
 		Company c = new Company(con);
 		Integer id = (Integer) request.getSession().getAttribute("userId");
 		c.loadCompany(id);
