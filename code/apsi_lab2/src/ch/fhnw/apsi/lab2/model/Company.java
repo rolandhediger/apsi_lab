@@ -415,17 +415,17 @@ public class Company {
 		BufferedReader in = new BufferedReader(new InputStreamReader(obj.openStream()));
 		String inputLine;
 
-		boolean bla = true;
+		boolean validPostalCode = true;
 		while ((inputLine = in.readLine()) != null) {
 			if (inputLine.contains("Keine PLZ gefunden")) {
-				bla = false;
+				validPostalCode = false;
 				break;
 			}
 
 		}
 		in.close();
 
-		return bla;
+		return validPostalCode;
 
 	}
 
