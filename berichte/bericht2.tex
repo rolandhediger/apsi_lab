@@ -118,15 +118,27 @@ Titel
  \pagestyle{documentstyle}
  \tableofcontents
  \pagebreak
-\section{Code}
+\section{Robust Programming}
+Folgende
 \subsection{Model}
 \subsubsection{XXS, SQL-Injection und Validierung}
-\subsubsection{Schutz der Model-Klasse vor schädlichem Missbrauch}
 
-\subsubsection{Postleitzahlen-Check}
+\subsubsection{Schutz der Model-Klasse vor schädlichem Missbrauch}
+Die schwierigkeit einer korrekten Login-implementation liegt darin, den Ablauf so zu gestalten dass nur dieser Ablauf zu einer validen Änderung führt. Heisst nur beim vorgesehenen Ablauf können nur korrekte Daten geschrieben werden, alles andere darf die Datenbank nicht verändern. So sind beispielsweise setters auf das Passwort problematisch. Zusammen mit der $.save()$ Methode könnte ein Fehlerhafter oder bösartiger Code das Passwort eines beliebigen Users überschreiben. Usernamen und ID sind ebenfalls Felder, auf die nur lesend zugegriffen werden soll.
+
+Umsetzung:
+
+
+\subsubsection{Postleitzahl Validierung}
+Die Postleitzahl wird wie verlangt, durch einen externen Service überprüft. Wir überprüfen nur, ob die Postleitzahl existiert und nicht ob die angegebene Stadt mit der Postleitzahl übereinstimmt. 
 
 \subsection{Controller}
+Der Controller wurde so simpel wie möglich gehalten, 
+
+\subsubsection{SSL}
 
 \section{Weitere Mögliche Massnahmen}
+
 \subsection{DOS-Attacke}
+
  \end{document}
