@@ -1,0 +1,24 @@
+todo:
+code:
+	ssl
+	(XSS)
+	Schönheit
+	Client-Server Bilder
+	DBUser wechseln :)
+	Passwd of mail
+	MX Lookup
+	Quote of the day
+	
+Bericht
+	PLZ, Ortschaft wird nicht überprüft wegen kleinstgemeinden
+
+	jon
+		model + Regex
+		controler
+		Sitemap
+		Schlussfolgerung/Abschluss
+	roland
+		ssl
+		Email
+		mxLookup
+		DB
