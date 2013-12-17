@@ -5,7 +5,7 @@ code:
 	Schönheit
 	Client-Server Bilder
 	DBUser wechseln :)
-	Passwd of mail
+	Passwd of mail->done
 	MX Lookup
 	Quote of the day
 	

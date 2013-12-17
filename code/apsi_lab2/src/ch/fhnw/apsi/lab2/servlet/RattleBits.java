@@ -37,6 +37,7 @@ public class RattleBits extends HttpServlet {
 		controller = new Controller(con);
 		Properties props = System.getProperties();
 		BufferedReader r = new BufferedReader(new FileReader("passwd.txt"));
+		props.put("mail.smtp.user", r.readLine());
 		props.put("mail.password", r.readLine());
 	}
 
@@ -80,7 +81,6 @@ public class RattleBits extends HttpServlet {
 		try {
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		super.destroy();

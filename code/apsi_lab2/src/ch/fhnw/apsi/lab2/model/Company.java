@@ -368,8 +368,6 @@ public class Company {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "false");
 		props.put("mail.smtp.tls", "false");
-		props.put("mail.smtp.user", "apsi@rolandh.tk");
-		props.put("mail.password", "apsitest");
 
 		javax.mail.Authenticator auth = new javax.mail.Authenticator() {
 			@Override
