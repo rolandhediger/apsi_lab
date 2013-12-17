@@ -52,21 +52,57 @@ public class Company {
 		this.con = con;
 	}
 
+	public Company(@NotNull Connection con, int id, @NotNull String password) throws Exception {
+		this.con = con;
+
+		if (password.matches(pwdCleanString)) {
+			PreparedStatement stm = con
+					.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE id = ? AND password = ? AND activation IS NULL");
+			stm.setInt(1, id);
+			stm.setString(2, hash(password));
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+				username = rs.getString(2);
+				companyName = rs.getString(3);
+				address = rs.getString(4);
+				zip = rs.getInt(5);
+				town = rs.getString(6);
+				mail = rs.getString(7);
+				valid = true;
+			} else {
+				throw new Exception("Invalid username or Password");
+			}
+		} else {
+			throw new Exception("Password is not valid");
+		}
+	}
+
+	public Company(@NotNull Connection con, String username, String password) throws Exception {
+		this.con = con;
+
+		if (password.matches(pwdCleanString) && username.matches(usrCleanString)) {
+			PreparedStatement stm;
+			try {
+				stm = con.prepareStatement("SELECT `id`, FROM company WHERE username = ? ");
+				stm.setString(1, username);
+				ResultSet rs = stm.executeQuery();
+				if (rs.next()) {
+					throw new Exception("User already exists");
+				}
+				this.username = username;
+				this.password = hash(password);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			throw new Exception("Username or Password are not valid");
+		}
+	}
+
 	public final int getId() {
 		return id;
-	}
-
-	public final void setId(int id) {
-		this.id = id;
-		valid = false;
-	}
-
-	public final String getUsername() {
-		return username;
-	}
-
-	public final void setUsername(String username) {
-		this.username = username;
 	}
 
 	public final String getPassword() {
@@ -79,12 +115,17 @@ public class Company {
 
 	}
 
+	//delete
 	public final void hashPassword() {
 		//Invariant : Only valid passwords are hashed see controller.
 		if (!hashed)
 			this.password = hash(this.password);
 		hashed = true;
 		valid = true;
+	}
+
+	public final String getUsername() {
+		return this.username;
 	}
 
 	public final String getCompanyName() {

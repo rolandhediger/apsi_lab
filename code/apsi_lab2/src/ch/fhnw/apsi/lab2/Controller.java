@@ -69,47 +69,52 @@ public class Controller {
 
 	public void registerPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> messages = new ArrayList<>();
-		Company c = new Company(con);
-		c.setUsername(request.getParameter("username"));
+		Company c = null;
+		String username = request.getParameter("username");
 		String pwd = request.getParameter("password");
-		if (pwd != null && pwd.equals(request.getParameter("passwordrepeat")))
-			c.setPassword(pwd);
-
-		c.setCompanyName(request.getParameter("firma"));
-		c.setAddress(request.getParameter("address"));
-		try {
-			c.setZip(Integer.parseInt(request.getParameter("plz")));
-		} catch (NumberFormatException e) {
-			messages.add("Invalid Postal Code");
-		}
-		c.setTown(request.getParameter("town"));
-		c.setMail(request.getParameter("mail"));
-		messages.addAll(c.validate());
-		request.setAttribute("firma", c.getCompanyName());
-		request.setAttribute("address", c.getAddress());
-		request.setAttribute("plz", String.valueOf(c.getZip()));
-		request.setAttribute("town", c.getTown());
-		request.setAttribute("mail", c.getMail());
-		if (messages.size() > 0) {
-			request.setAttribute("messages", messages);
-			request.getRequestDispatcher(REGISTER).forward(request, response);
-		} else {
-			c.setActivation(UUID.randomUUID().toString());
+		if (pwd != null && pwd.equals(request.getParameter("passwordrepeat"))) {
 			try {
-				c.hashPassword();
-				c.save();
-			} catch (SQLException e) {
-				messages.add("Database error,please try again later");
-				request.setAttribute("messages", messages);
-				request.getRequestDispatcher(REGISTER).forward(request, response);
-				e.printStackTrace();
-				return;
-			}
-			c.sendActivationCode();
-			request.setAttribute("message", "Registration successful please check your email for the activation link");
+				c = new Company(con, username, pwd);
+				c.setCompanyName(request.getParameter("firma"));
+				c.setAddress(request.getParameter("address"));
+				try {
+					c.setZip(Integer.parseInt(request.getParameter("plz")));
+				} catch (NumberFormatException e) {
+					messages.add("Invalid Postal Code");
+				}
+				c.setTown(request.getParameter("town"));
+				c.setMail(request.getParameter("mail"));
+				messages.addAll(c.validate());
+				request.setAttribute("firma", c.getCompanyName());
+				request.setAttribute("address", c.getAddress());
+				request.setAttribute("plz", String.valueOf(c.getZip()));
+				request.setAttribute("town", c.getTown());
+				request.setAttribute("mail", c.getMail());
+				if (messages.size() > 0) {
+					request.setAttribute("messages", messages);
+					request.getRequestDispatcher(REGISTER).forward(request, response);
+				} else {
+					c.setActivation(UUID.randomUUID().toString());
+					try {
+						c.hashPassword();
+						c.save();
+					} catch (SQLException e) {
+						messages.add("Database error,please try again later");
+						request.setAttribute("messages", messages);
+						request.getRequestDispatcher(REGISTER).forward(request, response);
+						e.printStackTrace();
+						return;
+					}
+					c.sendActivationCode();
+					request.setAttribute("message", "Registration successful please check your email for the activation link");
 
-			request.getRequestDispatcher(SUCCESS).forward(request, response);
+					request.getRequestDispatcher(SUCCESS).forward(request, response);
+				}
+			} catch (Exception e) {
+				messages.add(e.getMessage());
+			}
 		}
+
 	}
 
 	public void loginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
