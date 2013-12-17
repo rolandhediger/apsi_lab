@@ -52,39 +52,13 @@ public class Company {
 		this.con = con;
 	}
 
-	public Company(@NotNull Connection con, int id, @NotNull String password) throws Exception {
-		this.con = con;
-
-		if (password.matches(pwdCleanString)) {
-			PreparedStatement stm = con
-					.prepareStatement("SELECT `id`, `username`, `name`, `address`, `zip`, `town`, `mail` FROM company WHERE id = ? AND password = ? AND activation IS NULL");
-			stm.setInt(1, id);
-			stm.setString(2, hash(password));
-			ResultSet rs = stm.executeQuery();
-			if (rs.next()) {
-				id = rs.getInt(1);
-				username = rs.getString(2);
-				companyName = rs.getString(3);
-				address = rs.getString(4);
-				zip = rs.getInt(5);
-				town = rs.getString(6);
-				mail = rs.getString(7);
-				valid = true;
-			} else {
-				throw new Exception("Invalid username or Password");
-			}
-		} else {
-			throw new Exception("Password is not valid");
-		}
-	}
-
 	public Company(@NotNull Connection con, String username, String password) throws Exception {
 		this.con = con;
 
 		if (password.matches(pwdCleanString) && username.matches(usrCleanString)) {
 			PreparedStatement stm;
 			try {
-				stm = con.prepareStatement("SELECT `id`, FROM company WHERE username = ? ");
+				stm = con.prepareStatement("SELECT `id` FROM company WHERE username = ? ");
 				stm.setString(1, username);
 				ResultSet rs = stm.executeQuery();
 				if (rs.next()) {
@@ -182,7 +156,7 @@ public class Company {
 		valid = false;
 	}
 
-	public boolean checkLogin(String user, String password) throws SQLException {
+	public boolean login(String user, String password) throws SQLException {
 		if (password == null || user == null) {
 			return false;
 		}
@@ -297,13 +271,13 @@ public class Company {
 			errors.add("Username is required");
 		}
 
-		if (password != null) {
-			if (!password.matches(pwdCleanString)) {
-				errors.add("Invalid Password");
-			}
-		} else {
-			errors.add(" Password is required and has to be the same as Repeat Password");
-		}
+		//		if (password != null) {
+		//			if (!password.matches(pwdCleanString)) {
+		//				errors.add("Invalid Password");
+		//			}
+		//		} else {
+		//			errors.add(" Password is required and has to be the same as Repeat Password");
+		//		}
 
 		if (companyName != null) {
 			if (!companyName.matches(companyCleanString)) {

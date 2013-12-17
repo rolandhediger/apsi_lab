@@ -72,7 +72,7 @@ public class Controller {
 		Company c = null;
 		String username = request.getParameter("username");
 		String pwd = request.getParameter("password");
-		if (pwd != null && pwd.equals(request.getParameter("passwordrepeat"))) {
+		if (username != null && pwd != null && pwd.equals(request.getParameter("passwordrepeat"))) {
 			try {
 				c = new Company(con, username, pwd);
 				c.setCompanyName(request.getParameter("firma"));
@@ -110,9 +110,17 @@ public class Controller {
 
 					request.getRequestDispatcher(SUCCESS).forward(request, response);
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			} catch (Exception e) {
 				messages.add(e.getMessage());
+				request.setAttribute("messages", messages);
+				request.getRequestDispatcher(REGISTER).forward(request, response);
 			}
+		} else {
+			messages.add("Please enter your login data");
+			request.setAttribute("messages", messages);
+			request.getRequestDispatcher(REGISTER).forward(request, response);
 		}
 
 	}
@@ -122,7 +130,7 @@ public class Controller {
 		Company c = new Company(con);
 		boolean login = false;
 		try {
-			login = c.checkLogin(request.getParameter("username"), request.getParameter("password"));
+			login = c.login(request.getParameter("username"), request.getParameter("password"));
 		} catch (SQLException e) {
 			messages.add("Database error,please try again later");
 		}

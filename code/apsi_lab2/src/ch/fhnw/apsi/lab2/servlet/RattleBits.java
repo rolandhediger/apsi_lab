@@ -1,8 +1,11 @@
 package ch.fhnw.apsi.lab2.servlet;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,11 +30,14 @@ public class RattleBits extends HttpServlet {
 	 * @throws ClassNotFoundException
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RattleBits() throws SQLException, ClassNotFoundException {
+	public RattleBits() throws SQLException, ClassNotFoundException, IOException {
 		super();
 		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=root");
 		controller = new Controller(con);
+		Properties props = System.getProperties();
+		BufferedReader r = new BufferedReader(new FileReader("passwd.txt"));
+		props.put("mail.password", r.readLine());
 	}
 
 	/**
