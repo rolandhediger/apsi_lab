@@ -246,8 +246,6 @@ Web.xml: \\
 
 \section{Weitere Mögliche Massnahmen}
 
-\subsection{Brute Force Logins}
-Logins im Datenbank abspeichern und wenn der Anzahl ein Grenzwert erreicht hat, sollte ein boolean gesetzt werden. 
-Dieser Benutzer muss eine Zeit dann abwarten bevor er einloggen könnte.
+\subsection{DOS-Attacke}
 
  \end{document}
