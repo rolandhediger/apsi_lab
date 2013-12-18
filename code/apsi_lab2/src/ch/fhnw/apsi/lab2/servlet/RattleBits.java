@@ -1,6 +1,7 @@
 package ch.fhnw.apsi.lab2.servlet;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,14 +33,13 @@ public class RattleBits extends HttpServlet {
 	public RattleBits() throws SQLException, ClassNotFoundException, IOException {
 		super();
 		Class.forName("com.mysql.jdbc.Driver");
-		con = DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=root");
+		con = DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=apsiuser");
 		controller = new Controller(con);
 		Properties props = System.getProperties();
 
-		System.out.println(new File(".").getAbsolutePath());
-		//BufferedReader r = new BufferedReader(new FileReader("passwd.txt"));
-		props.put("mail.smtp.user", "apsi@rolandh.tk");
-		props.put("mail.password", "apsitest");
+		BufferedReader r = new BufferedReader(new FileReader("passwd.txt"));
+		props.put("mail.smtp.user", r.readLine());
+		props.put("mail.password", r.readLine());
 	}
 
 	/**
