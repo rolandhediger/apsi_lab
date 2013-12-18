@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.20)  18 DEC 2013 10:17
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.20)  18 DEC 2013 21:12
 entering extended mode
 **bericht2.tex
 (C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.tex
@@ -718,49 +718,53 @@ Package Fancyhdr Warning: \headheight is too small (15.0pt):
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Jon/Documents/Gi
 tHub/apsi_lab/berichte/fhnw_ht_e_10mm.jpg>]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 123.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 146.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 11.03998pt on input line 123.
+(Font)              scaled to size 11.03998pt on input line 146.
+File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
+ <use ./fhnw_ht_e_10mm.jpg>
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 158.
+(pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
 
-Overfull \hbox (120.0479pt too wide) in paragraph at lines 159--159
+[2]
+Overfull \hbox (120.0479pt too wide) in paragraph at lines 177--177
 []  \OT1/cmtt/m/n/10 OPENSSL=ca.cnf openssl req -x509 -nodes -days 3650     -ne
 wkey rsa:2048 -out apsica/certs/ca.pem     -outform PEM[] 
  []
 
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
 <use ./fhnw_ht_e_10mm.jpg>
-Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 159.
-(pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
- [2]
-File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
- <use ./fhnw_ht_e_10mm.jpg>
-Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 215.
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 233.
 (pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
-
+File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
+<use ./fhnw_ht_e_10mm.jpg>
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 263.
+(pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
+ [4] 
 AED: lastpage setting LastPage
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
 <use ./fhnw_ht_e_10mm.jpg>
-Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 255.
+Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 273.
 (pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
- [4]
+ [5]
 
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 53.
 See the caption package documentation for explanation.
 
 (C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.aux) ) 
 Here is how much of TeX's memory you used:
- 7856 strings out of 494045
- 113090 string characters out of 3145975
- 216744 words of memory out of 3000000
- 11020 multiletter control sequences out of 15000+200000
+ 7869 strings out of 494045
+ 113260 string characters out of 3145975
+ 214744 words of memory out of 3000000
+ 11033 multiletter control sequences out of 15000+200000
  18026 words of font info for 46 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 40i,16n,47p,590b,443s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,16n,47p,590b,442s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Fil
 es (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTe
@@ -768,9 +772,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9
 /fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/t
 ype1/urw/helvetic/uhvr8a.pfb>
-Output written on bericht2.pdf (4 pages, 287329 bytes).
+Output written on bericht2.pdf (5 pages, 294405 bytes).
 PDF statistics:
- 37 PDF objects out of 1000 (max. 8388607)
+ 40 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

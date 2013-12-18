@@ -118,12 +118,33 @@ Apsi
  \pagestyle{documentstyle}
  \tableofcontents
  \pagebreak
+ \section{Einleitung}
+ Die Bearbeitung von HTML-Formularen bildet das Ruckgrat vieler Web-Applikationen. Mit dieser Laborübung sollten Sie 
+eine erste Schutzschicht (im Sinne von Saltzer und Schröder) in Ihrer Web-Applikation sorgfältig planen und entwickeln.
+Sie sollen Ihre Aufmerksamkeit auf die folgenden Grundprinzipien richten:
+\begin{enumerate}
+ \item  Separation of privilege: Halten Sie Rechte sorgfältig auseinander. Konkret will heissen,
+dass die Programmschicht, welche die Eingaben des Benutzers sammelt, nicht auch für
+den eigentlichen Login des registrierten Benutzers verwendet werden darf.
+ \item  Complete mediation: Jeder Input/Output muss verifiziert werden. Sie sollten im Vor-
+aus bestimmen, wie die erlaubte Information aussehen darf, und dann strikt die Kri-
+terien für ihre Validierung formulieren.
+ \item  Fail-safe defaults: Falls der Benutzer unbewusst (oder bewusst) falsche Informatio-
+nen via HTML-Formular einschleusen will, sollte Ihre Applikation nur mit knappen
+Hinweisen reagieren und vermeiden, dass der Benutzer die Applikation allzu lange
+beansprucht (d.h. Sie sollten eine geeignete fail-safe Strategie entwerfen).
+ \item  Availability and reliability: Ihre Applikation soll maximal 50 Benutzer in parallel (ohne
+nennenswerte Einbussen in der Performanz) bedienen können. Überlegen Sie, welche
+Implikationen diese Forderung für die Sicherheit Ihrer Applikation beinhaltet.
+\end{enumerate}
 \section{Datenbankabsicherung}
-Alle Felder im "Company" Tabelle sind mit dem NOT NULL Constraint erzeugt worden. Ebenfalls haben wir ein DB Benutzer eingerichtet der nur Privilegien auf unsere Lab-Datenbank hat.
+Alle Felder im "Company" Tabelle sind mit dem NOT NULL Constraint erzeugt worden. Ebenfalls haben wir ein DB Benutzer eingerichtet der nur Privilegien auf unserer Lab-Datenbank hat.
  
-\section{Robust Programming}
+\section{Klassenbeschreibung und Robust Programming Techniken}
+Unser Programm setzt das MVC-Pattern um. Es gibt ein zentrales Servlet, welches das Routing übernimmt und die Requests zum Controller weiterleitet.
 
-\subsection{Model}
+\subsection{Model (Klasse Company)}
+Da wir unsere Validierung im Model vornehmen, konnten wir Annotationen wie $@NotNull$ nur spärlich verwenden, da die Überprüfung dort vorgenommen wird.
 \subsubsection{XXS, SQL-Injection und Validierung}
 Validerung wurde mittels Regex vorgenommen. Wir benutzen sogennante ``Clean Strings''. m.a.w Regex Ausdrücke die ungültige Zeichen nicht erlauben. Die Validierung erzwingen wir indem die $save()$ Methode nur in die Datenbank schreibt, wenn vorher die Funktion $validate()$ aufgerufen wurde.
 
@@ -142,7 +163,7 @@ Um das Model korrekt umzusetzen wurden zwei Konstruktoren implementiert. Ein Kon
 Die Postleitzahl wird wie verlangt, durch einen externen Service überprüft. Die Website fragt post.ch ab,ob eine gewisse Postleitzahl existiert. Wenn diese nicht existiert, enthält die HTML Antwort den String \"Keine PLZ Gefunden\" und wir lassen diese PLZ nicht zu. Wir überprüfen nur, ob die Postleitzahl existiert und nicht ob die angegebene Stadt mit der Postleitzahl übereinstimmt. 
 
 \subsection{Controller}
-Der Controller wurde so simpel wie möglich gehalten. Dieser ist nur zuständig, die richtigen Methoden des Models aufzurufen, die Request/Response parameter zu lesen und befüllen und den User auf die richtigen Seiten weiterzuleiten.. Es wurde darauf geachtet, dass das Model nur erlaubte Änderungen in die Datenbank schreibt.
+Der Controller wurde so simpel wie möglich gehalten. Dieser ist nur zuständig, die richtigen Methoden des Models aufzurufen, die Request/Response parameter zu lesen und befüllen und den User auf die richtigen Seiten weiterzuleiten. Es wurde darauf geachtet, dass das Model nur erlaubte Änderungen in die Datenbank schreibt.
 
 
 \section{Sicherung mit SSL}
@@ -245,8 +266,8 @@ Web.xml: \\
 \section{Weitere Mögliche Massnahmen}
 
 \subsection{Session Timeouts}
-Sessions sollten einen geeigneten Timeoutwert haben. Dieser muss jedoch auf das Benutzerverhalten abgestimmt werden.
+Sessions sollten einen geeigneten Timeoutwert haben. Dieser muss jedoch auf das Benutzerverhalten abgestimmt werden. Sollte bei jeder komerziellen Website gesetzt sein.
 
 \subsection{Brute Force Logins}
-Gescheiterte Loginversuche müssen in der Datenbank abgespeichert werden. Wenn die Anzahl der Fehlversuche einen Grenzwert überschreitet, muss dieser Benutzer eine Zeit abwarten bevor er sich wieder einloggen kann. 
+Um das Problem von Brute Force Logins zu lösen, müssen gescheiterte Loginversuche in der Datenbank abgespeichert werden. Wenn die Anzahl der Fehlversuche einen Grenzwert überschreitet, muss dieser Benutzer eine Zeit abwarten bevor er sich wieder einloggen kann. 
  \end{document}
