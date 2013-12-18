@@ -118,8 +118,12 @@ Apsi
  \pagestyle{documentstyle}
  \tableofcontents
  \pagebreak
+\section{Datenbankabsicherung}
+
+ 
+ 
 \section{Robust Programming}
-Folgende
+
 \subsection{Model}
 \subsubsection{XXS, SQL-Injection und Validierung}
 Validerung findet Statt mittels Regex die im Java eingebaut ist. Wir benutzen sogennante ``Clean Strings''. m.a.w Regex 
@@ -144,9 +148,9 @@ Um das Model korrekt umzusetzen wurden zwei Konstruktoren implementiert. Ein Kon
 Die Postleitzahl wird wie verlangt, durch einen externen Service überprüft. Die Website fragt post.ch ab,ob eine gewisse Postleitzahl existiert. Wenn diese nicht existiert, enthält die HTML Antwort den String \"Keine PLZ Gefunden\" und wir lassen diese PLZ nicht zu. Wir überprüfen nur, ob die Postleitzahl existiert und nicht ob die angegebene Stadt mit der Postleitzahl übereinstimmt. 
 
 \subsection{Controller}
-Der Controller wurde so simpel wie möglich gehalten, 
+Der Controller wurde so simpel wie möglich gehalten. Dieser ist nur zuständig, die richtigen Methoden des Models aufzurufen, die Request/Response parameter zu lesen und befüllen und den User auf die richtigen Seiten weiterzuleiten.. Es wurde darauf geachtet, dass das Model nur erlaubte Änderungen in die Datenbank schreibt.
 
-\subsubsection{SSL}
+
 \section{Sicherung mit SSL}
 Im folgenden Abschitte wird den Code gelistet die wir benutzt haben um ein Zertifikat zu erzeugen und dann 
 schlussendlich Tomcat mit dem Zertifikat enzurichten.
@@ -251,5 +255,7 @@ Web.xml: \\
 \subsection{Brute Force Logins}
 Logins im Datenbank abspeichern und wenn der Anzahl ein Grenzwert erreicht hat, sollte ein boolean gesetzt werden. 
 Dieser Benutzer muss eine Zeit dann abwarten bevor er einloggen könnte.
+
+\section{Bedrohungen, welche nicht in unserem Bereich liegen}
 
  \end{document}
