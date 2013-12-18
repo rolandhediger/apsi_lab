@@ -34,6 +34,8 @@ public class Controller {
 
 	public void overviewPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> messages = new LinkedList<>();
+		//HttpClient client = new DefaultHttpClient();
+
 		Company c = new Company(con);
 		Integer id = (Integer) request.getSession().getAttribute("userId");
 		c.loadCompany(id);
@@ -42,6 +44,7 @@ public class Controller {
 		String newPwdRepeat = request.getParameter("newpasswordrepeat");
 		messages = c.updatePassword(oldPwd, newPwd, newPwdRepeat);
 		request.setAttribute("messages", messages);
+		//request.setAttribute("quote", arg1);
 		request.getRequestDispatcher(OVERVIEW).forward(request, response);
 	}
 

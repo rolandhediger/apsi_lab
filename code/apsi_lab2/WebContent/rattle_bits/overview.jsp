@@ -8,7 +8,7 @@
 <title>RattleBits</title>
 </head>
 <body>
-<form method="POST" action='/apsi_lab2/RattleBits' name="ChangePassword">
+<form method="POST" action='/apsi_lab2/RattleBits?page=overview' name="overview">
 
 <table>
 	<tr>

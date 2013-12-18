@@ -1,7 +1,6 @@
 package ch.fhnw.apsi.lab2.servlet;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,9 +35,11 @@ public class RattleBits extends HttpServlet {
 		con = DriverManager.getConnection("jdbc:mysql://localhost/apsiLab2?user=root");
 		controller = new Controller(con);
 		Properties props = System.getProperties();
-		BufferedReader r = new BufferedReader(new FileReader("passwd.txt"));
-		props.put("mail.smtp.user", r.readLine());
-		props.put("mail.password", r.readLine());
+
+		System.out.println(new File(".").getAbsolutePath());
+		//BufferedReader r = new BufferedReader(new FileReader("passwd.txt"));
+		props.put("mail.smtp.user", "apsi@rolandh.tk");
+		props.put("mail.password", "apsitest");
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class RattleBits extends HttpServlet {
 			controller.registerPage(request, response);
 		} else if ("activate".equals(page)) {
 			controller.activatePage(request, response);
-		} else if ("overview".equals(page)) {
+		} else if ("ChangePassword".equals(page)) {
 			controller.overviewPage(request, response);
 		} else {
 			controller.indexPage(request, response);

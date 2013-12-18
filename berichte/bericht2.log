@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.20)  17 DEC 2013 15:37
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.20)  18 DEC 2013 10:06
 entering extended mode
 **bericht2.tex
 (C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.tex
@@ -586,7 +586,7 @@ Package caption Info: KOMA-Script document class.
 \c@ContinuedFloat=\count115
 Package caption Info: listings package is loaded.
 )
-No file bericht2.aux.
+(C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
 LaTeX Font Info:    ... okay on input line 106.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
@@ -600,6 +600,7 @@ LaTeX Font Info:    ... okay on input line 106.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
 LaTeX Font Info:    ... okay on input line 106.
 LaTeX Font Info:    Try loading font information for OT1+phv on input line 106.
+
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1phv.fd"
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
@@ -695,8 +696,9 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 108.
 
 LaTeX Warning: No \author given.
 
-No file bericht2.toc.
+(C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.toc)
 \tf@toc=\write3
+
 <./fhnw_ht_e_10mm.jpg, id=1, 297.39105pt x 28.47438pt>
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
 
@@ -719,47 +721,33 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 123.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
 (Font)              scaled to size 11.03998pt on input line 123.
-
-
-Package lastpage Warning: Rerun to get the references right on input line 144.
-
-
+ 
 AED: lastpage setting LastPage
 File: ./fhnw_ht_e_10mm.jpg Graphic file (type jpg)
 <use ./fhnw_ht_e_10mm.jpg>
 Package pdftex.def Info: ./fhnw_ht_e_10mm.jpg used on input line 144.
 (pdftex.def)             Requested size: 237.91316pt x 22.77951pt.
-
-
-LaTeX Warning: Reference `LastPage' on page 2 undefined on input line 144.
-
-[2]
+ [2]
 
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 53.
 See the caption package documentation for explanation.
 
-(C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+(C:\Users\Jon\Documents\GitHub\apsi_lab\berichte\bericht2.aux) ) 
 Here is how much of TeX's memory you used:
- 7849 strings out of 494045
- 112821 string characters out of 3145975
- 209744 words of memory out of 3000000
- 11018 multiletter control sequences out of 15000+200000
+ 7854 strings out of 494045
+ 113069 string characters out of 3145975
+ 210744 words of memory out of 3000000
+ 11019 multiletter control sequences out of 15000+200000
  17858 words of font info for 45 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 40i,16n,47p,597b,409s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on bericht2.pdf (2 pages, 259282 bytes).
+ 40i,16n,47p,590b,409s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2
+.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
+/type1/urw/helvetic/uhvr8a.pfb>
+Output written on bericht2.pdf (2 pages, 261183 bytes).
 PDF statistics:
  27 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

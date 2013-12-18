@@ -99,9 +99,9 @@
 \pagestyle{firststyle} %different look of first page
  
 \title{ %Titel
-Titel
+Apsi
 \vspace{0.2cm}
-\Large more titel }
+\Large Lab 2 }
 
  \begin{document}
  \maketitle
@@ -127,10 +127,10 @@ Folgende
 Die schwierigkeit einer korrekten Login-implementation liegt darin, den Ablauf so zu gestalten dass nur dieser Ablauf zu einer validen Änderung führt. Heisst nur beim vorgesehenen Ablauf können nur korrekte Daten geschrieben werden, alles andere darf die Datenbank nicht verändern. So sind beispielsweise setters auf das Passwort problematisch. Zusammen mit der $.save()$ Methode könnte ein Fehlerhafter oder bösartiger Code das Passwort eines beliebigen Users überschreiben. Usernamen und ID sind ebenfalls Felder, auf die nur lesend zugegriffen werden soll.
 
 Umsetzung:
-Um das Model korrekt umzusetzen wurden zwei Konstruktoren implementiert. Ein Konstruktor nimmt einen Benutzernamen und Passwort entgegen
+Um das Model korrekt umzusetzen wurden zwei Konstruktoren implementiert. Ein Konstruktor nimmt einen Benutzernamen und Passwort entgegen. Dieser ist zuständig, einen neue erstellten Benutzer zu repräsentieren. Ein zweiter Konstruktor nimmt eine ID und ein Passwort entgegen. 
 
 \subsubsection{Postleitzahl Validierung}
-Die Postleitzahl wird wie verlangt, durch einen externen Service überprüft. Wir überprüfen nur, ob die Postleitzahl existiert und nicht ob die angegebene Stadt mit der Postleitzahl übereinstimmt. 
+Die Postleitzahl wird wie verlangt, durch einen externen Service überprüft. Die Website fragt post.ch ab,ob eine gewisse Postleitzahl existiert. Wenn diese nicht existiert, enthält die HTML Antwort den String \"Keine PLZ Gefunden\" und wir lassen diese PLZ nicht zu. Wir überprüfen nur, ob die Postleitzahl existiert und nicht ob die angegebene Stadt mit der Postleitzahl übereinstimmt. 
 
 \subsection{Controller}
 Der Controller wurde so simpel wie möglich gehalten, 
