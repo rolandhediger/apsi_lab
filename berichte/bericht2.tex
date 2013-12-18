@@ -212,7 +212,7 @@ Im folgenden Abschitt wird der Code gelistet, welcher wir benutzt haben um ein Z
          86:76:aa:69
 \end{verbatim}
 
-Dieser Zertifikat ist mit einem CSR verbunden und nachdem wir es mit unserem CA unterzeichnet haben, ist es im Keystore Integriert.
+Dieses Zertifikat ist mit einem CSR verbunden und nachdem wir es mit unserer CA unterzeichnet haben, ist es im Keystore integriert.
 
 \subsection{Tomcat Server Config}
 \begin{verbatim}
@@ -245,9 +245,11 @@ Web.xml: \\
 
 \section{Weitere Mögliche Massnahmen}
 
+\subsection{Session Timeouts}
+Sessions sollten einen geeigneten Timeoutwert haben. Dieser muss jedoch auf das Benutzerverhalten abgestimmt werden.
+
 \subsection{Brute Force Logins}
-Logins im Datenbank abspeichern und wenn der Anzahl ein Grenzwert erreicht hat, sollte ein boolean gesetzt werden. 
-Dieser Benutzer muss eine Zeit dann abwarten bevor er einloggen könnte.
+Gescheiterte Loginversuche müssen in der Datenbank abgespeichert werden. Wenn die Anzahl der Fehlversuche einen Grenzwert überschreitet, muss dieser Benutzer eine Zeit abwarten bevor er sich wieder einloggen kann. 
 
 \section{Bedrohungen, welche nicht in unserem Bereich liegen}
 
